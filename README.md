@@ -1,2 +1,2 @@
 # spire-workload-integrations
-Documentation and tests for Spire workload integrationsd
+Documentation and tests for Spire workload integrations
