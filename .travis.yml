@@ -26,9 +26,6 @@ jobs:
       os: linux
       dist: xenial
       before_script:
-        # Get SPIRE master
-        - git clone https://github.com/spiffe/spire.git
-
         # Download stable kubectl
         - curl -s -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
         # Download latest minikube
@@ -43,8 +40,15 @@ jobs:
 
         # Wait for stuff to become ready
         - JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'; until kubectl get nodes -o jsonpath="$JSONPATH" 2>&1 | grep -q "Ready=True"; do sleep 1; done
-      script:
+
+         # Get SPIRE master
+        - git clone https://github.com/spiffe/spire.git
+
         # Build spire images
-        - cd spire && make build && eval $(minikube docker-env) && make spire-images && cd ..
+        - cd spire
+        - eval $(minikube docker-env)
+        - make spire-images
+        - cd ..
+      script:
         # Run systems tests
         - examples/k8s/test-all.sh
