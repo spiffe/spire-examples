@@ -1,4 +1,4 @@
-# Postgres SPIRE deployment
+# Postgres SPIRE 0.7.3 deployment
 
 This configuration is an example of a SPIRE deployment for Kubernetes using
 Postgres as a datastore for the SPIRE server. This configuration provides
@@ -32,7 +32,7 @@ failures and scalability.
   where a StatefulSet and PersistentVolumeClaim are used.
 
 In this example deployment, the SPIRE server is stateless, using the example
-[dummy upstream CA](https://github.com/spiffe/spire/tree/master/conf/server).
+[dummy upstream CA](https://github.com/spiffe/spire/tree/0.7.3/conf/server).
 
 One other **important note**: In a production environment it is very important
 to use a highly available Postgres configuration, unlike this configuration

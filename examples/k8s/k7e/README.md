@@ -10,9 +10,8 @@ of 1.14.
 + [community_day_2019_may](community_day_2019_may) - This is the demo from
   SPIFFE Community Day in May, 2019.
 
-These configurations use the bundle notifier plugin introduced in spire 0.8
-(and note that currently `unstable` container images are used until 0.8 is
-released). The bundle notifier replaces both the bootstrap and upstream CA.
+These configurations use the bundle notifier plugin introduced in spire 0.8.0.
+The bundle notifier replaces both the bootstrap and upstream CA.
 
 ## Using Kustomize with Kubectl
 

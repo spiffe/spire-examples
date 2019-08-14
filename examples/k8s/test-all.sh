@@ -19,7 +19,7 @@ echo "${bold}Checking minikube status...${norm}"
 minikube status || fail "minikube isn't running"
 
 echo "${bold}Installing k8s-test...${norm}"
-( cd "${DIR}"/../../tools/k8s-test && GO111MODULE=on go install ) || fail "unable to build k8s-test"
+( cd "${DIR}"/../../spire/tools/k8s-test && GO111MODULE=on go install ) || fail "unable to build k8s-test"
 
 # add GOPATH/bin to the PATH
 PATH="$(go env GOPATH)"/bin:$PATH
