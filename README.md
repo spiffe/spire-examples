@@ -23,13 +23,16 @@ Examples showing how to deploy SPIRE on Kubernetes. There are several configurat
   Kubernetes
   [projected service account token (PSAT) attestor](https://github.com/spiffe/spire/blob/0.8.0/doc/plugin_server_nodeattestor_k8s_psat.md)
   that otherwise deploys SPIRE as in the **Simple SAT** example.
-+ [Postgres with SPIRE 0.7.3](examples/k8s/postgres) - This expands on the **simple sat** configuration by
++ [Postgres with SPIRE 0.7.3](examples/k8s/postgres) - This expands on the **Simple SAT** configuration by
   moving the SPIRE datastore into a Postgres StatefulSet. The SPIRE server is
   now a stateless Deployment that can be scaled.
-+ [EKS-based SAT with SPIRE 0.8.0](examples/k8s/eks_sat) - This slightly modifies the **simple sat** configuration to
-  make it compatible with EKS platform.
 + [Kustomize with SPIRE 0.8.0](examples/k8s/k7e) - A set of SPIRE examples using [Kustomize](https://kustomize.io/)
   as shown at the SPIFFE Community Day in May, 2019.
+
+## EKS
+
++ [EKS-based SAT with SPIRE 0.8.0](examples/k8s/eks_sat) - This slightly modifies the **Kubernetes Simple SAT** configuration to
+  make it compatible with EKS platform.
 
 ## Getting Help
 
