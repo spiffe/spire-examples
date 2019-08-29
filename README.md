@@ -6,13 +6,13 @@ This repository houses various SPIFFE/SPIRE deployment and integration examples.
 
 The SPIRE project is growing rapidly, and new features are released often. In order to ensure the accuracy of accompanying documentation, each example is written against a specific version of SPIRE. All examples are regularly tested against the stated SPIRE version, but are likely to work with newer versions as well.
 
-## Envoy Examples
+## Envoy
 
 Examples showing how SPIRE integrates with Envoy.
 
 * [Envoy SDS Integration with SPIRE 0.8.0](examples/envoy) Use SPIRE to deliver and rotate X509-SVIDs for Envoy
 
-## Kubernetes Examples
+## Kubernetes
 
 Examples showing how to deploy SPIRE on Kubernetes. There are several configuration possibilities.
 
