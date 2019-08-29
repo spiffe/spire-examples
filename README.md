@@ -31,6 +31,8 @@ Examples showing how to deploy SPIRE on Kubernetes. There are several configurat
 
 ## EKS
 
+Examples showing how to deploy SPIRE on Amazon EKS.
+
 + [EKS-based SAT with SPIRE 0.8.0](examples/k8s/eks_sat) - This slightly modifies the **Kubernetes Simple SAT** configuration to
   make it compatible with EKS platform.
 
