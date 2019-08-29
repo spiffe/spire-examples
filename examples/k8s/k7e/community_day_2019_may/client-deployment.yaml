@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: gcr.io/spiffe-io/spire-agent:0.7.3
+          image: gcr.io/spiffe-io/spire-agent:0.8.0
           imagePullPolicy: Always
           command: ["/bin/sleep", "1d"]
           volumeMounts:
