@@ -1,23 +1,65 @@
 #!/bin/bash
 
-set -e
-
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-cleanup() {
-	# cleans the test environment (deletes the spire namespace)
-	k8s-test clean
+bold=$(tput bold) || true
+norm=$(tput sgr0) || true
+red=$(tput setaf 1) || true
+green=$(tput setaf 2) || true
+yellow=$(tput setaf 3) || true
+
+fail() {
+	echo "${red}$*${norm}."
+	exit 1
 }
+
+delete-ns() {
+	echo "${bold}Cleaning up...${norm}"
+    kubectl delete --ignore-not-found namespace spire > /dev/null
+}
+
+cleanup() {
+    if [ -z "${GOOD}" ]; then
+        echo "${yellow}Dumping statefulset/spire-server logs...${norm}"
+        kubectl -nspire logs statefulset/spire-server --all-containers
+        echo "${yellow}Dumping daemonset/spire-agent logs...${norm}"
+        kubectl -nspire logs daemonset/spire-agent --all-containers
+    fi
+    delete-ns
+    if [ -n "${GOOD}" ]; then
+        echo "${green}Success.${norm}"
+    else
+        echo "${red}Failed.${norm}"
+    fi
+}
+
 trap cleanup EXIT
 
-# initialize the test environment (creates a clean spire namespace)
-k8s-test init
+echo "${bold}Preparing environment...${norm}"
+delete-ns
+kubectl create namespace spire
 
-# apply the server configuration (and waits until it is ready)
-k8s-test apply --no-local "${DIR}"/spire-server.yaml
+echo "${bold}Applying configuration...${norm}"
+kubectl apply -k "${DIR}"
 
-# apply the agent configuration (and waits until it is ready)
-k8s-test apply --no-local "${DIR}"/spire-agent.yaml
+LOGLINE="Node attestation request .* completed"
+for ((i=0;i<120;i++)); do
+    if ! kubectl -nspire rollout status deployment/spire-server; then
+        sleep 1
+        continue
+    fi
+    if ! kubectl -nspire rollout status daemonset/spire-agent; then
+        sleep 1
+        continue
+    fi
+    if ! kubectl -nspire logs deployment/spire-server -c spire-server | grep -e "$LOGLINE" ; then
+        sleep 1
+        continue
+    fi
+    echo "${bold}Node attested.${norm}"
+    GOOD=1
+    exit 0
+done
 
-# wait for a node to attest
-k8s-test wait node-attestation statefulset/spire-server
+echo "${red}Timed out waiting for node to attest.${norm}"
+exit 1
