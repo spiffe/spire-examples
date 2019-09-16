@@ -47,3 +47,8 @@ jobs:
       script:
         # Run systems tests
         - examples/k8s/test-all.sh
+
+notifications:
+  email:
+    recipients:
+      - eng-onprem@scytale.io

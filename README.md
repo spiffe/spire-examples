@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/spiffe/spire-examples.svg?branch=master)](https://travis-ci.org/spiffe/spire-examples)
+
 # SPIRE Examples
 
 Hello, and welcome to SPIRE examples!
