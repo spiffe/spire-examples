@@ -44,7 +44,7 @@ kubectl apply -k "${DIR}"
 
 LOGLINE="Node attestation request .* completed"
 for ((i=0;i<120;i++)); do
-    if ! kubectl -nspire rollout status deployment/spire-server; then
+    if ! kubectl -nspire rollout status statefulset/spire-server; then
         sleep 1
         continue
     fi
@@ -52,7 +52,7 @@ for ((i=0;i<120;i++)); do
         sleep 1
         continue
     fi
-    if ! kubectl -nspire logs deployment/spire-server -c spire-server | grep -e "$LOGLINE" ; then
+    if ! kubectl -nspire logs statefulset/spire-server -c spire-server | grep -e "$LOGLINE" ; then
         sleep 1
         continue
     fi
