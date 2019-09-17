@@ -41,9 +41,6 @@ jobs:
         # Wait for stuff to become ready
         - JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'; until kubectl get nodes -o jsonpath="$JSONPATH" 2>&1 | grep -q "Ready=True"; do sleep 1; done
 
-         # Get SPIRE master (we need it to build k8s-test tool)
-        - git clone https://github.com/spiffe/spire.git
-
       script:
         # Run systems tests
         - examples/k8s/test-all.sh
