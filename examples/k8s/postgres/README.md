@@ -1,4 +1,4 @@
-# Postgres SPIRE 0.7.3 deployment
+# Postgres SPIRE 0.9.0 deployment
 
 This configuration is an example of a SPIRE deployment for Kubernetes using
 Postgres as a datastore for the SPIRE server. This configuration provides
