@@ -1,4 +1,4 @@
-# Envoy 1.10.0 SDS Example with SPIRE 0.8.1
+# Envoy 1.10.0 SDS Example with SPIRE 0.9.0
 
 ## Requirements
 
@@ -45,6 +45,12 @@ Open up a browser to http://localhost:8080 to test out:
 
 **NOTE** It may take a 30 seconds or so for Envoy to reconnect to upstream
 after the registration entries are created.
+
+## Clean up
+
+```
+$ docker-compose down
+```
 
 ## Miscellaneous
 
