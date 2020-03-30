@@ -26,6 +26,8 @@ jobs:
       os: linux
       dist: xenial
       before_script:
+        # Install conntrack which is required for minikube since v1.18.0
+        - sudo apt-get install -y conntrack
         # Download stable kubectl
         - curl -s -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
         # Download latest minikube
