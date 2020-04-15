@@ -1,4 +1,4 @@
-# Postgres SPIRE 0.9.0 deployment
+# Postgres SPIRE 0.10.0 deployment
 
 This configuration is an example of a SPIRE deployment for Kubernetes using
 Postgres as a datastore for the SPIRE server. This configuration provides
@@ -25,14 +25,13 @@ either case it's imperative to configure the server appropriately to handle
 failures and scalability.
 
 + **stateless** - To run the SPIRE server stateless (as in this example), the
-  `UpstreamCA` plugin needs to be used, and `upstream_bundle = true` needs to
-  be set.
+  `UpstreamAuthority` plugin needs to be used.
 + **stateful** - To run the SPIRE server stateful, the directory specified in
   `data_dir` must be persistent (such as in the [simple sat example](../simple_sat)
   where a StatefulSet and PersistentVolumeClaim are used.
 
 In this example deployment, the SPIRE server is stateless, using the example
-[dummy upstream CA](https://github.com/spiffe/spire/tree/0.7.3/conf/server).
+[dummy upstream authority](https://github.com/spiffe/spire/tree/v0.10.0/conf/server).
 
 One other **important note**: In a production environment it is very important
 to use a highly available Postgres configuration, unlike this configuration
