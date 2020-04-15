@@ -11,8 +11,10 @@ static_resources:
     filter_chains:
     - filters:
       - name: envoy.http_connection_manager
-        config:
-          idle_timeout: 1s
+        typed_config:
+          "@type": type.googleapis.com/envoy.config.filter.network.http_connection_manager.v2.HttpConnectionManager
+          common_http_protocol_options:
+            idle_timeout: 1s
           codec_type: auto
           access_log:
           - name: envoy.file_access_log
@@ -39,8 +41,10 @@ static_resources:
     filter_chains:
     - filters:
       - name: envoy.http_connection_manager
-        config:
-          idle_timeout: 1s
+        typed_config:
+          "@type": type.googleapis.com/envoy.config.filter.network.http_connection_manager.v2.HttpConnectionManager
+          common_http_protocol_options:
+            idle_timeout: 1s
           codec_type: auto
           access_log:
           - name: envoy.file_access_log
