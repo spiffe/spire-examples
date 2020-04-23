@@ -1,5 +1,4 @@
-# TODO: replace hash for 0.10.0
-FROM gcr.io/spiffe-io/spire-server:429286051c1e0d729be2bec8d7ee26204494cf7a
+FROM gcr.io/spiffe-io/spire-server:0.10.0
 
 # Override spire configurations
 COPY conf/spire-server.conf /opt/spire/conf/server/server.conf
