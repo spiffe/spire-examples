@@ -1,6 +1,6 @@
-# Simple SPIRE 0.9.0 deployment using SAT node attestor
+# Simple SPIRE 0.10.0 deployment using SAT node attestor
 
-This configuration is an example of a simple SPIRE 0.9.0 deployment for Kubernetes that uses [SAT node attestor](https://github.com/spiffe/spire/blob/0.7.3/doc/plugin_server_nodeattestor_k8s_sat.md).
+This configuration is an example of a simple SPIRE v0.10.0 deployment for Kubernetes that uses [SAT node attestor](https://github.com/spiffe/spire/blob/v0.10.0/doc/plugin_server_nodeattestor_k8s_sat.md).
 
 + The SPIRE [server](spire-server.yaml) runs as a StatefulSet using a
   PersistentVolumeClaim.
