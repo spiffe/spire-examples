@@ -13,7 +13,7 @@ metadata:
   name: spire-agent-cluster-role
 rules:
 - apiGroups: [""]
-  resources: ["pods","nodes"]
+  resources: ["pods","nodes", "nodes/proxy"]
   verbs: ["get"]
 
 ---
@@ -65,7 +65,10 @@ data:
 
       WorkloadAttestor "k8s" {
         plugin_data {
-          kubelet_read_only_port = "10255"
+            # Defaults to the secure kubelet port by default.
+            # Minikube does not have a cert in the cluster CA bundle that
+            # can authenticate the kubelet cert, so skip validation.
+            skip_kubelet_verification = true
         }
       }
 
@@ -120,7 +123,7 @@ spec:
           args: ["-t", "30", "spire-server:8081"]
       containers:
         - name: spire-agent
-          image: gcr.io/spiffe-io/spire-agent:0.9.0
+          image: gcr.io/spiffe-io/spire-agent:0.10.0
           args: ["-config", "/run/spire/config/agent.conf"]
           volumeMounts:
             - name: spire-config

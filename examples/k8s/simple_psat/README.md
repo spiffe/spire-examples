@@ -1,6 +1,6 @@
-# Simple SPIRE 0.9.0 deployment using PSAT node attestor
+# Simple SPIRE 0.10.0 deployment using PSAT node attestor
 
-This configuration is an example of a simple SPIRE 0.9.0 deployment for Kubernetes that uses [PSAT node attestor](https://github.com/spiffe/spire/blob/0.8.0/doc/plugin_server_nodeattestor_k8s_psat.md).
+This configuration is an example of a simple SPIRE 0.10.0 deployment for Kubernetes that uses [PSAT node attestor](https://github.com/spiffe/spire/blob/v0.10.0/doc/plugin_server_nodeattestor_k8s_psat.md).
 
 + The SPIRE [server](spire-server.yaml) runs as a StatefulSet using a
   PersistentVolumeClaim.
@@ -22,11 +22,12 @@ The following flags must be passed to the Kubernetes API server to properly run 
 
 If you are using minikube, make sure it is started as follows:
 ```
-minikube start --extra-config=apiserver.authorization-mode=RBAC \
-               --extra-config=apiserver.service-account-signing-key-file=/var/lib/minikube/certs/sa.key \
-               --extra-config=apiserver.service-account-key-file=/var/lib/minikube/certs/sa.pub \
-               --extra-config=apiserver.service-account-issuer=api \
-               --extra-config=apiserver.service-account-api-audiences=api,spire-server
+minikube start  --vm-driver=virtualbox \
+                --extra-config=apiserver.authorization-mode=Node,RBAC \
+                --extra-config=apiserver.service-account-signing-key-file=/var/lib/minikube/certs/sa.key \
+                --extra-config=apiserver.service-account-key-file=/var/lib/minikube/certs/sa.pub \
+                --extra-config=apiserver.service-account-issuer=api \
+                --extra-config=apiserver.service-account-api-audiences=api,spire-server
 ```
 
 ### Deployment
