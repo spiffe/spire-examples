@@ -49,8 +49,8 @@ static_resources:
           combined_validation_context:
             # validate the SPIFFE ID of incoming clients (optionally)
             default_validation_context:
-              verify_subject_alt_name:
-                - "spiffe://domain.test/web-server"
+              match_subject_alt_names:
+                - exact: "spiffe://domain.test/web-server"
             # obtain the trust bundle from SDS
             validation_context_sds_secret_config:
               name: "spiffe://domain.test"
