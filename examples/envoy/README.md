@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Go 1.12
+- Go 1.14
 - docker-compose
 
 ## Build

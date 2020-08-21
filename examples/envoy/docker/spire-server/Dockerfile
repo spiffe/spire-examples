@@ -1,4 +1,4 @@
-FROM gcr.io/spiffe-io/spire-server:0.10.0
+FROM gcr.io/spiffe-io/spire-server@sha256:fe149f1d01d3536bd48fa10f49903be039e6f966afdafc946b247828c169cc69 
 
 # Override spire configurations
 COPY conf/spire-server.conf /opt/spire/conf/server/server.conf
