@@ -95,7 +95,7 @@ spec:
           args: ["-t", "30", "spire-server:8081"]
       containers:
         - name: spire-agent
-          image: gcr.io/spiffe-io/spire-agent:0.10.0
+          image: gcr.io/spiffe-io/spire-agent:f214dec94bc32fa8504b8b3d684731fc06dccb72
           args: ["-config", "/run/spire/config/agent.conf"]
           volumeMounts:
             - name: spire-config
