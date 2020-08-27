@@ -1,18 +1,18 @@
-# SPIRE 0.10.0 deployment using SAT node attestor on EKS
+# SPIRE 0.11.0 deployment using SAT node attestor on EKS
 
-This configuration is an example of a SPIRE 0.10.0 deployment for Kubernetes on EKS. This example is based on the [simple SAT](../simple_sat/README.md), with minor modifications to make it work on EKS platform.
+This configuration is an example of a SPIRE 0.11.0 deployment for Kubernetes on EKS. This example is based on the [simple SAT](../simple_sat/README.md), with minor modifications to make it work on EKS platform.
 
 Compare the [simple SAT server](../simple_sat/spire-server.yaml) configuration with
 this [EKS SAT server](spire-server.yaml) to see the differences, which
 consist of:
 
-+ Node attestation is done using the [SAT node attestor](https://github.com/spiffe/spire/blob/v0.10.0/doc/plugin_server_nodeattestor_k8s_sat.md)
++ Node attestation is done using the [SAT node attestor](https://github.com/spiffe/spire/blob/v0.11.0/doc/plugin_server_nodeattestor_k8s_sat.md)
 with kubernetes token review validation enabled.
 + As a consequence of the above, volume and volume mounts for validation key are removed.
 + RBAC authorization policies are set to guarantee access to certain Kubernetes resources.
 
 In the same way, the differences between the [simple SAT agent](../simple_sat/spire-agent.yaml) and [EKS SAT server](spire-agent.yaml) are:
-+ Workload attestation is done using the [k8s workload attestor](https://github.com/spiffe/spire/blob/v0.10.0/doc/plugin_agent_workloadattestor_k8s.md) with the secure port configuration.
++ Workload attestation is done using the [k8s workload attestor](https://github.com/spiffe/spire/blob/v0.11.0/doc/plugin_agent_workloadattestor_k8s.md) with the secure port configuration.
 + RBAC authorization policies are set to guarantee access to certain Kubernetes resources.
 
 Both SPIRE agent and server run in the **spire** namespace, using service accounts of **spire-server** and **spire-agent**.
