@@ -30,6 +30,7 @@ trap cleanup EXIT
 
 echo "${bold}Preparing environment...${norm}"
 
+cd $DIR
 set_env
 
 ECHO_CONTAINER_ID=$(docker container ls -qf "name=echo")
