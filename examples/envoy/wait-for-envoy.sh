@@ -21,7 +21,7 @@ while [ "$i" -lt 30 ]; do
 done
 
 if [ -z "${ENVOY_READY}" ]; then
-  echo "${red}${1}Timed out waiting for ${1}'s envoy${norm}"
+  echo "${red}Timed out waiting for ${1}'s envoy${norm}"
   exit 1
 fi
 exit 0

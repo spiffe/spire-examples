@@ -4,7 +4,7 @@ set -e
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-(cd src/web-server && GOOS=linux go build -v -o $DIR/docker/web/web-server)
-(cd src/echo-server && GOOS=linux go build -v -o $DIR/docker/echo/echo-server)
+(cd "${DIR}"/src/web-server && GOOS=linux go build -v -o $DIR/docker/web/web-server)
+(cd "${DIR}"/src/echo-server && GOOS=linux go build -v -o $DIR/docker/echo/echo-server)
 
-docker-compose -f docker-compose.yml build
+docker-compose -f "${DIR}"/docker-compose.yml build

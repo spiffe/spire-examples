@@ -8,6 +8,12 @@ norm=$(tput sgr0) || true
 red=$(tput setaf 1) || true
 green=$(tput setaf 2) || true
 
+fingerprint() {
+	# calculate the SHA1 digest of the DER bytes of the certificate using the
+	# "coreutils" output format (`-r`) to provide uniform output from
+	# `openssl sha1` on macOS and linux.
+	cat $1 | openssl x509 -outform DER | openssl sha1 -r | awk '{print $1}'
+}
 
 search_occurrences() {
   echo "$1" | grep -e "$2"
@@ -15,29 +21,29 @@ search_occurrences() {
 
 cleanup() {
   echo "${bold}Cleaning up...${norm}"
-  docker-compose down
+  docker-compose -f "${DIR}"/docker-compose.yml down
 }
 
 set_env() {
-  bash "${DIR}"/build.sh > /dev/null
-  docker-compose up -d
-  bash "${DIR}"/1-start-services.sh
-  bash "${DIR}"/2-start-spire-agents.sh 
-  bash "${DIR}"/3-create-registration-entries.sh > /dev/null
+  "${DIR}"/build.sh > /dev/null
+  docker-compose -f "${DIR}"/docker-compose.yml up -d
+  "${DIR}"/1-start-services.sh
+  "${DIR}"/2-start-spire-agents.sh
+  "${DIR}"/3-create-registration-entries.sh > /dev/null
 }
 
 trap cleanup EXIT
 
 echo "${bold}Preparing environment...${norm}"
 
-cd $DIR
+cleanup
 set_env
 
 ECHO_CONTAINER_ID=$(docker container ls -qf "name=echo")
 WEB_CONTAINER_ID=$(docker container ls -qf "name=web")
 
-docker cp wait-for-envoy.sh "$ECHO_CONTAINER_ID":/tmp
-docker cp wait-for-envoy.sh "$WEB_CONTAINER_ID":/tmp
+docker cp "${DIR}"/wait-for-envoy.sh "$ECHO_CONTAINER_ID":/tmp
+docker cp "${DIR}"/wait-for-envoy.sh "$WEB_CONTAINER_ID":/tmp
 
 echo "${bold}Waiting for envoy...${norm}"
 
@@ -84,6 +90,48 @@ if [[ "$( echo "$(search_occurrences "$MTLS_RESPONSE" "$SECRET_PASS_HEADER")" | 
     echo "${green}Envoy to Envoy mTLS connection test succeded${norm}"
 else
   echo "${red}Envoy to Envoy mTLS connection test failed${norm}"
+  FAILED=true
+fi
+
+echo "${bold}Updating SPIFFE ID of registration entry...${norm}"
+
+ECHO_AGENT_FINGERPRINT=$(fingerprint "${DIR}"/docker/echo/conf/agent.crt.pem)
+ECHO_ENTRY_ID=$(docker-compose -f "${DIR}"/docker-compose.yml exec spire-server bin/spire-server entry show \
+  -spiffeID spiffe://domain.test/echo-server | grep "Entry ID")
+ECHO_ENTRY_ID=$(echo ${ECHO_ENTRY_ID#*:} | tr -d '\r') 
+
+docker-compose -f "${DIR}"/docker-compose.yml exec spire-server bin/spire-server entry update \
+  -parentID spiffe://domain.test/spire/agent/x509pop/${ECHO_AGENT_FINGERPRINT} \
+  -spiffeID spiffe://domain.test/no-echo-server \
+  -selector unix:user:root \
+  -entryID ${ECHO_ENTRY_ID} \
+  -ttl 10 > /dev/null
+
+ERROR_MESSAGE="unexpected echo server response status: 503"
+
+for ((i=0;i<5;i++)); do
+  TLS_RESPONSE=$(curl -s http://localhost:8080/?route=envoy-to-envoy-tls)
+  if [[ -z $(search_occurrences "$TLS_RESPONSE" "$ERROR_MESSAGE") ]]; then
+      echo "SVID was not rotated yet, sleeping for a while.."
+      sleep 5
+      continue
+  else
+    echo "${green}Envoy to Envoy TLS connection test after registration entries update succeded${norm}"
+    SVID_ROTATED=true
+    break
+  fi
+done
+
+if [ -z "${SVID_ROTATED}" ]; then
+  echo "${red}Envoy to Envoy TLS connection test after registration entries update failed${norm}"
+  FAILED=true
+fi
+
+MTLS_RESPONSE=$(curl -s http://localhost:8080/?route=envoy-to-envoy-mtls)
+if [[ -n $(search_occurrences "$MTLS_RESPONSE" "$ERROR_MESSAGE") ]]; then
+    echo "${green}Envoy to Envoy mTLS connection test after registration entries update succeded${norm}"
+else
+  echo "${red}Envoy to Envoy mTLS connection test after registration entries update failed${norm}"
   FAILED=true
 fi
 
