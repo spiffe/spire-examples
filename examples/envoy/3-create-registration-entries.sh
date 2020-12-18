@@ -21,12 +21,10 @@ echo "${bb}Creating registration entry for the web server...${nn}"
 docker-compose -f "${DIR}"/docker-compose.yml exec spire-server bin/spire-server entry create \
 	-parentID spiffe://domain.test/spire/agent/x509pop/${WEB_AGENT_FINGERPRINT} \
 	-spiffeID spiffe://domain.test/web-server \
-	-selector unix:user:root \
-  -ttl 10
+	-selector unix:user:root
 
 echo "${bb}Creating registration entry for the echo server...${nn}"
 docker-compose -f "${DIR}"/docker-compose.yml exec spire-server bin/spire-server entry create \
 	-parentID spiffe://domain.test/spire/agent/x509pop/${ECHO_AGENT_FINGERPRINT} \
 	-spiffeID spiffe://domain.test/echo-server \
-	-selector unix:user:root \
-  -ttl 10 
+	-selector unix:user:root
