@@ -46,6 +46,7 @@ jobs:
       script:
         # Run systems tests
         - examples/k8s/test-all.sh
+        - examples/envoy/test.sh
 
 notifications:
   email:

@@ -2,6 +2,8 @@
 
 set -e
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 bb=$(tput bold)
 nn=$(tput sgr0)
 
@@ -12,17 +14,17 @@ fingerprint() {
 	cat $1 | openssl x509 -outform DER | openssl sha1 -r | awk '{print $1}'
 }
 
-WEB_AGENT_FINGERPRINT=$(fingerprint docker/web/conf/agent.crt.pem)
-ECHO_AGENT_FINGERPRINT=$(fingerprint docker/echo/conf/agent.crt.pem)
+WEB_AGENT_FINGERPRINT=$(fingerprint "${DIR}"/docker/web/conf/agent.crt.pem)
+ECHO_AGENT_FINGERPRINT=$(fingerprint "${DIR}"/docker/echo/conf/agent.crt.pem)
 
 echo "${bb}Creating registration entry for the web server...${nn}"
-docker-compose exec spire-server bin/spire-server entry create \
+docker-compose -f "${DIR}"/docker-compose.yml exec spire-server bin/spire-server entry create \
 	-parentID spiffe://domain.test/spire/agent/x509pop/${WEB_AGENT_FINGERPRINT} \
 	-spiffeID spiffe://domain.test/web-server \
 	-selector unix:user:root
 
 echo "${bb}Creating registration entry for the echo server...${nn}"
-docker-compose exec spire-server bin/spire-server entry create \
+docker-compose -f "${DIR}"/docker-compose.yml exec spire-server bin/spire-server entry create \
 	-parentID spiffe://domain.test/spire/agent/x509pop/${ECHO_AGENT_FINGERPRINT} \
 	-spiffeID spiffe://domain.test/echo-server \
 	-selector unix:user:root
