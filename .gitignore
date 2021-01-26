@@ -4,9 +4,18 @@
 *.dll
 *.so
 *.dylib
-
-# Test binary, build with `go test -c`
-*.test
-
-# Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+.build*
+.cache
+.data
+.glide
+.tmp
+*.swp
+*.log
+
+# Travis CI encrypted files decryption paths
+.travis/spire-travis-ci.json
+
+# Editor specific configuration
+.idea
+.vscode
