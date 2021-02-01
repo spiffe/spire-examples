@@ -11,10 +11,13 @@ if [ "${running}" != 'true' ]; then
     registry:2
 fi
 
-# Create the cluster. 
-# The containerdConfigPatches line is useful to configure access to the local registry. 
+# Create the cluster.
+# The containerdConfigPatches line is useful to configure access to the local registry.
 # The ClusterConfiguration options are needed for nodes to access projected service
 # account tokens.
+# The example uses serviceAccountToken that is by default enabled in K8s 1.20
+# To simplify the deployment, select a node image with K8s 1.20 or higher.
+# The complete list of Kind images: https://github.com/kubernetes-sigs/kind/releases
 cat <<EOF | kind create cluster --name spire-example -v 5 --config=-
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
@@ -24,6 +27,7 @@ containerdConfigPatches:
     endpoint = ["http://${reg_name}:${reg_port}"]
 nodes:
 - role: control-plane
+  image: kindest/node:v1.20.2@sha256:8f7ea6e7642c0da54f04a7ee10431549c0257315b3a634f6ef2fecaaedb19bab
   kubeadmConfigPatches:
   - |
 EOF

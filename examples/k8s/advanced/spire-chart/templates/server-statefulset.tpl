@@ -49,8 +49,9 @@ spec:
             periodSeconds: 6000
             timeoutSeconds: 3
         - name: k8s-workload-registrar
-          image: k8s-workload-registrar:latest
-          imagePullPolicy: Never
+          #image: k8s-workload-registrar:latest
+          image: gcr.io/spiffe-io/k8s-workload-registrar@sha256:912484f6c0fb40eafb16ba4dd2d0e1b0c9d057c2625b8ece509f5510eaf5b704
+          imagePullPolicy: Always
           args:
             - -config
             - /run/k8s-workload-registrar/config/registrar.conf

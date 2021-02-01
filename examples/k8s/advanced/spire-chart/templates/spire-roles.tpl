@@ -17,7 +17,7 @@ rules:
     verbs: ["get", "watch", "list", "create"]
   - apiGroups: [""]
     resources: ["nodes","pods"]
-    verbs: ["list"]
+    verbs: ["list","get"]
   - apiGroups: [""]
     resources: ["configmaps"]
     resourceNames: ["spire-bundle"]
