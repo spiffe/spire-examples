@@ -22,7 +22,7 @@ The following flags must be passed to the Kubernetes API server to properly run 
 
 If you are using minikube, make sure it is started as follows:
 ```
-minikube start  --vm-driver=virtualbox \
+minikube start  --driver=virtualbox \
                 --extra-config=apiserver.authorization-mode=Node,RBAC \
                 --extra-config=apiserver.service-account-signing-key-file=/var/lib/minikube/certs/sa.key \
                 --extra-config=apiserver.service-account-key-file=/var/lib/minikube/certs/sa.pub \
