@@ -152,7 +152,7 @@ static_resources:
         - endpoint:	
             address:	
               pipe:	
-                path: /tmp/spire-agent/public/api.sock
+                path: /tmp/agent.sock
   - name: echo_server
     connect_timeout: 0.25s
     type: strict_dns
