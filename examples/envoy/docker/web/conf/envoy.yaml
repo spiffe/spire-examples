@@ -41,11 +41,6 @@ static_resources:
                   cluster: web_to_echo_mtls
           http_filters:
           - name: envoy.filters.http.router
-      # - name: envoy.tcp_proxy
-      #   typed_config:
-      #     "@type": type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy
-      #     cluster: web_to_echo_mtls
-      #     stat_prefix: web_to_echo_mtls
   - name: web_to_echo_tls_listener
     address:
       socket_address:
@@ -77,11 +72,6 @@ static_resources:
                   cluster: web_to_echo_tls
           http_filters:
           - name: envoy.filters.http.router
-      # - name: envoy.tcp_proxy
-      #   typed_config:
-      #     "@type": type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy
-      #     cluster: web_to_echo_tls
-      #     stat_prefix: web_to_echo_tls
   clusters:
   - name: spire_agent
     connect_timeout: 0.25s
