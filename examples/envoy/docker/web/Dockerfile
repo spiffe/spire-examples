@@ -1,6 +1,6 @@
 # FROM gcr.io/spiffe-io/spire-agent:0.11.0 as spire
-# FROM gcr.io/spiffe-io/spire-agent:0.12.0 as spire
-FROM gcr.io/spiffe-io/spire-agent@sha256:e93e6879cc2a231a4983444312d8c32523c1106f388df275dca0db484cca312f as spire
+FROM gcr.io/spiffe-io/spire-agent:0.12.0 as spire
+# FROM gcr.io/spiffe-io/spire-agent@sha256:e93e6879cc2a231a4983444312d8c32523c1106f388df275dca0db484cca312f as spire
 
 FROM envoyproxy/envoy-alpine:v1.17.0
 RUN mkdir -p /opt/spire/conf/agent

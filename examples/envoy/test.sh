@@ -20,8 +20,8 @@ set_env() {
   "${DIR}"/build.sh > /dev/null
   docker-compose -f "${DIR}"/docker-compose.yml up -d
   "${DIR}"/1-start-services.sh
-  "${DIR}"/2-start-spire-agents.sh
   "${DIR}"/3-create-registration-entries.sh > /dev/null
+  "${DIR}"/2-start-spire-agents.sh
 }
 
 trap cleanup EXIT
