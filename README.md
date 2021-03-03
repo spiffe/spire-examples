@@ -12,7 +12,7 @@ The SPIRE project is growing rapidly, and new features are released often. In or
 
 Examples showing how SPIRE integrates with Envoy.
 
-* [Envoy SDS Integration with SPIRE 0.11.0](examples/envoy) Use SPIRE to deliver and rotate X509-SVIDs for Envoy
+* [Envoy SDS Integration with SPIRE 0.12.0](examples/envoy) Use SPIRE to deliver and rotate X509-SVIDs for Envoy
 
 ## Kubernetes
 
