@@ -43,16 +43,19 @@ spec:
             - name: spire-agent-token
               mountPath: /var/run/secrets/tokens
           livenessProbe:
-            exec:
-              command:
-                - /opt/spire/bin/spire-agent
-                - healthcheck
-                - -socketPath
-                - /run/spire/sockets/agent.sock
+            httpGet:
+              path: /live
+              port: 8080
             failureThreshold: 2
             initialDelaySeconds: 15
             periodSeconds: 60
             timeoutSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
       volumes:
         - name: spire-config
           configMap:
