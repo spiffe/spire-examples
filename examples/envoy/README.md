@@ -1,4 +1,4 @@
-# Envoy 1.14.1 SDS Example with SPIRE 0.11.0
+# Envoy 1.17.0 SDS Example with SPIRE 0.12.0
 
 ## Requirements
 
