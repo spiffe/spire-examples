@@ -1,13 +1,6 @@
 node:
   id: "id_02"
   cluster: "cluster_02"
-admin:
-  access_log_path: /tmp/admin_access.log
-  profile_path: /tmp/envoy.prof
-  address:
-    socket_address: 
-      address: 127.0.0.1
-      port_value: 9901
 static_resources:
   listeners:
   - name: web_to_echo_mtls_listener
