@@ -40,14 +40,19 @@ spec:
             - name: spire-secret
               mountPath: /run/spire/secret
           livenessProbe:
-            exec:
-              command:
-                - /opt/spire/bin/spire-server
-                - healthcheck
+            httpGet:
+              path: /live
+              port: 8080
             failureThreshold: 2
             initialDelaySeconds: 15
             periodSeconds: 6000
             timeoutSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
         - name: k8s-workload-registrar
           #image: k8s-workload-registrar:latest
           image: gcr.io/spiffe-io/k8s-workload-registrar@sha256:912484f6c0fb40eafb16ba4dd2d0e1b0c9d057c2625b8ece509f5510eaf5b704
