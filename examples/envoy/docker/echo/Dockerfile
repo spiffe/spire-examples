@@ -1,4 +1,4 @@
-FROM gcr.io/spiffe-io/spire-agent:1.0.0 as spire
+FROM gcr.io/spiffe-io/spire-agent:1.0.1 as spire
 
 FROM envoyproxy/envoy-alpine:v1.17.0
 RUN mkdir -p /opt/spire/conf/agent

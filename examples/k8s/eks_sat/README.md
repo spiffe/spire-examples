@@ -1,6 +1,6 @@
-# SPIRE 1.0.0 deployment using SAT node attestor on EKS
+# SPIRE 1.0.1 deployment using SAT node attestor on EKS
 
-This configuration is an example of a SPIRE 1.0.0 deployment for Kubernetes on EKS. This example is based on the [simple SAT](../simple_sat/README.md), with minor modifications to make it work on EKS platform.
+This configuration is an example of a SPIRE 1.0.1 deployment for Kubernetes on EKS. This example is based on the [simple SAT](../simple_sat/README.md), with minor modifications to make it work on EKS platform.
 
 Compare the [simple SAT server](../simple_sat/spire-server.yaml) configuration with
 this [EKS SAT server](spire-server.yaml) to see the differences, which

@@ -1,4 +1,4 @@
-# Simple SPIRE 1.0.0 deployment using SAT node attestor
+# Simple SPIRE 1.0.1 deployment using SAT node attestor
 
 This configuration is an example of a simple SPIRE v0.11.0 deployment for Kubernetes that uses [SAT node attestor](https://github.com/spiffe/spire/blob/v0.11.0/doc/plugin_server_nodeattestor_k8s_sat.md).
 
