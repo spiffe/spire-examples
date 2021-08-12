@@ -1,0 +1,46 @@
+name: PR Build
+on:
+  push: {}
+  pull_request: {}
+  workflow_dispatch: {}
+env:
+  GO_VERSION: 1.16.5
+  CHANGE_MINIKUBE_NONE_USER: true
+jobs:
+  test-all:
+    runs-on: ubuntu-18.04
+    steps: 
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ env.GO_VERSION }}
+      - name: Setup utils
+        run: |
+          # Install conntrack which is required for minikube since v1.18.0
+          sudo apt-get install -y conntrack
+          # Download stable kubectl
+          curl -s -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+          # Download latest minikube
+          # latest is minikube uses K8s version that is not compatible with SPIRE yet.
+          # Once we update images to use SPIRE v1.0.1 we 'must' update to latest.
+          curl -s -Lo minikube https://storage.googleapis.com/minikube/releases/v1.21.0/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+          echo "Start minikube"
+          # Start up minikube
+          sudo minikube start --driver=none --extra-config=apiserver.service-account-signing-key-file=/var/lib/minikube/certs/sa.key --extra-config=apiserver.service-account-key-file=/var/lib/minikube/certs/sa.pub --extra-config=apiserver.service-account-issuer=api --extra-config=apiserver.service-account-api-audiences=api,spire-server --extra-config=apiserver.authorization-mode=Node,RBAC
+
+          echo "Make sure kubectl configuration is up to date"
+          # Make sure kubectl configuration is up to date
+          sudo chown -R $USER.$USER ~/.kube
+          sudo chown -R $USER.$USER ~/.minikube
+          minikube update-context
+
+          echo "Wait for stuff to become ready"
+          # Wait for stuff to become ready
+          JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'; until kubectl get nodes -o jsonpath="$JSONPATH" 2>&1 | grep -q "Ready=True"; do sleep 1; done
+
+      - name: Envoy example
+        run: examples/k8s/test-all.sh
+      - name: K8s examples
+        run: examples/k8s/test-all.sh
