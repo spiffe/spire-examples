@@ -1,6 +1,8 @@
 name: PR Build
 on:
-  push: {}
+  push: 
+    branches:
+      - master
   pull_request: {}
   workflow_dispatch: {}
 env:
