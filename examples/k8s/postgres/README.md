@@ -31,7 +31,7 @@ failures and scalability.
   where a StatefulSet and PersistentVolumeClaim are used.
 
 In this example deployment, the SPIRE server is stateless, using the example
-[dummy upstream authority](https://github.com/spiffe/spire/tree/v0.11.0/conf/server).
+[dummy upstream authority](https://github.com/spiffe/spire/tree/v1.0.1/conf/server).
 
 One other **important note**: In a production environment it is very important
 to use a highly available Postgres configuration, unlike this configuration
