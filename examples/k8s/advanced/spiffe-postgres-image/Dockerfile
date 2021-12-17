@@ -5,4 +5,4 @@ RUN git clone https://github.com/spiffe/spiffe-helper
 WORKDIR /spiffe-helper
 RUN make build
 COPY helper.conf /spiffe-helper
-COPY create-user.sql /spiffe-helper
+COPY create_user.sql /spiffe-helper
