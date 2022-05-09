@@ -16,7 +16,7 @@ The bundle notifier replaces both the bootstrap and upstream CA.
 ## Using Kustomize with Kubectl
 
 You'll want to read the documentation for
-[kustomize](https://github.com/kubernetes-sigs/kustomize/tree/master/docs)
+[kustomize](https://kubectl.docs.kubernetes.io/references/kustomize/)
 and
 [kubectl](https://kubectl.docs.kubernetes.io/pages/app_management/introduction.html),
 however here's a quick primer.

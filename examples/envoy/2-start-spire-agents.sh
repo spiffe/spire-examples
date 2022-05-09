@@ -11,7 +11,7 @@ nn=$(tput sgr0)
 # trust bundle into each agent container. Alternatively, an upstream CA could
 # be configured on the SPIRE server and each agent provided with the upstream
 # trust bundle (see UpstreamAuthority under
-# https://github.com/spiffe/spire/blob/master/doc/spire_server.md#plugin-types)
+# https://github.com/spiffe/spire/blob/main/doc/spire_server.md#plugin-types)
 echo "${bb}Bootstrapping trust between SPIRE agents and SPIRE server...${nn}"
 docker-compose -f "${DIR}"/docker-compose.yml exec -T spire-server bin/spire-server bundle show |
 	docker-compose -f "${DIR}"/docker-compose.yml exec -T web tee conf/agent/bootstrap.crt > /dev/null
