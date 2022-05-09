@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/spiffe/spire-examples.svg?branch=main)](https://travis-ci.org/spiffe/spire-examples)
+[![Build Status](https://github.com/spiffe/spire-examples/actions/workflows/pr_build.yaml/badge.svg)](https://github.com/spiffe/spire-examples/actions/workflows/pr_build.yaml)
 
 # SPIRE Examples
 
