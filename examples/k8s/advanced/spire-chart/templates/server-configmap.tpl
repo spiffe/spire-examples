@@ -17,8 +17,9 @@ data:
       trust_domain = "{{ .Values.trustdomain }}"
       data_dir = "/run/spire/data"
       log_level = "DEBUG"
-      default_svid_ttl = "1h"
-      registration_uds_path = "/run/spire/sockets/registration.sock"
+      default_x509_svid_ttl = "1h"
+      default_jwt_svid_ttl = "5m"
+      socket_path = "/run/spire/sockets/registration.sock"
       ca_subject = {
         country = ["US"],
         organization = ["SPIFFE"],
@@ -40,9 +41,6 @@ data:
                 }
             }
         }
-      }
-      NodeResolver "noop" {
-        plugin_data {}
       }
       KeyManager "disk" {
         plugin_data {
