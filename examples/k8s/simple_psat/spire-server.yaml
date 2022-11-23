@@ -87,14 +87,10 @@ data:
         plugin_data {
           clusters = {
             "demo-cluster" = {
-              service_account_whitelist = ["spire:spire-agent"]
+              service_account_allow_list = ["spire:spire-agent"]
             }
           }
         }
-      }
-
-      NodeResolver "noop" {
-        plugin_data {}
       }
 
       KeyManager "disk" {
