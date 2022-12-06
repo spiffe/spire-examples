@@ -1,8 +1,8 @@
-# Envoy 1.17.0 SDS Example with SPIRE 1.0.1
+# Envoy 1.17.0 SDS Example with SPIRE 1.5.0
 
 ## Requirements
 
-- Go 1.14
+- Go 1.14+
 - docker-compose
 
 ## Build
