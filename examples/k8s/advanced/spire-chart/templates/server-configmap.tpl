@@ -17,8 +17,7 @@ data:
       trust_domain = "{{ .Values.trustdomain }}"
       data_dir = "/run/spire/data"
       log_level = "DEBUG"
-      default_svid_ttl = "1h"
-      registration_uds_path = "/run/spire/sockets/registration.sock"
+      socket_path = "/run/spire/sockets/registration.sock"
       ca_subject = {
         country = ["US"],
         organization = ["SPIFFE"],
@@ -36,13 +35,10 @@ data:
         plugin_data {
             clusters = {
                 "{{ .Values.clustername }}" = {
-                    service_account_whitelist = ["spire:spire-agent"]
+                    service_account_allow_list = ["spire:spire-agent"]
                 }
             }
         }
-      }
-      NodeResolver "noop" {
-        plugin_data {}
       }
       KeyManager "disk" {
         plugin_data {

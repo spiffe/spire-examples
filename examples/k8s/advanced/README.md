@@ -6,11 +6,7 @@ entries.
 for SPIRE itself, but not as a workload.)
  
 The Kubernetes cluster is running SPIRE and spiffe-helper, and spiffe-helper is configured
-to push certificates into a Postgres database for authenticaiton. 
+to push certificates into a Postgres database for authentication. 
 
 Because spiffe-helper has to be inside the same image as the Postgres server, these scripts
 create a new image containg Postgres and spiffe-helper.
-
-Also since we are not releasing k8s-workload-registrar as a finished image yet, the scripts
-download the source and build it. 
-

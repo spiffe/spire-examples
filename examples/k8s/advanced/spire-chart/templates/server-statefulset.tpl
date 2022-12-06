@@ -21,7 +21,7 @@ spec:
       shareProcessNamespace: true
       containers:
         - name: spire-server
-          image: ghcr.io/spiffe/spire-server:1.5.1
+          image: ghcr.io/spiffe/spire-server:1.5.0
           args:
             - -config
             - /run/spire/config/server.conf
@@ -54,7 +54,7 @@ spec:
             initialDelaySeconds: 5
             periodSeconds: 5
         - name: k8s-workload-registrar
-          image: ghcr.io/spiffe/k8s-workload-registrar:1.5.1
+          image: gcr.io/spiffe-io/k8s-workload-registrar:1.5.0
           imagePullPolicy: Always
           args:
             - -config
