@@ -16,9 +16,10 @@ spec:
     spec:
       containers:
         - name: client
-          image: gcr.io/spiffe-io/spire-agent:1.5.0
+          image: ghcr.io/spiffe/spire-agent:1.5.1
           imagePullPolicy: Always
-          command: ["/bin/sleep", "1d"]
+          command: ["/opt/spire/bin/spire-agent"]
+          args: ["api", "watch", "-socketPath", "/run/spire/sockets/agent.sock"]
           volumeMounts:
             - name: spire-agent-socket
               mountPath: /run/spire/sockets
