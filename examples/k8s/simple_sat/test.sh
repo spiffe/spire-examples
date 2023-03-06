@@ -13,12 +13,17 @@ fail() {
 	exit 1
 }
 
+create-cluster() {
+	kind delete cluster -n demo-cluster > /dev/null
+  kind create cluster -n demo-cluster || fail "Failed to create cluster"
+}
+
 delete-ns() {
 	echo "${bold}Cleaning up...${norm}"
-    kubectl delete --ignore-not-found namespace spire > /dev/null
 }
 
 cleanup() {
+    kind delete cluster -n demo-cluster > /dev/null
     if [ -z "${GOOD}" ]; then
         echo "${yellow}Dumping statefulset/spire-server logs...${norm}"
         kubectl -nspire logs statefulset/spire-server --all-containers
@@ -36,6 +41,7 @@ cleanup() {
 trap cleanup EXIT
 
 echo "${bold}Preparing environment...${norm}"
+create-cluster
 delete-ns
 kubectl create namespace spire
 

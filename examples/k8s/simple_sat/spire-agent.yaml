@@ -1,3 +1,4 @@
+# Create a service account for the spire-agent
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -6,6 +7,7 @@ metadata:
 
 ---
 
+# Create the config map for the spire-agent, which contains the agent configuration file
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -73,6 +75,7 @@ data:
 
 ---
 
+# Create the spire-agent daemonset
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -100,11 +103,11 @@ spec:
           # you prefer that waits for a service to be up. This image is built
           # from https://github.com/lqhl/wait-for-it
           image: gcr.io/spiffe-io/wait-for-it
-          args: ["-t", "30", "spire-server:8081"]
+          args: [ "-t", "30", "spire-server:8081" ]
       containers:
         - name: spire-agent
           image: ghcr.io/spiffe/spire-agent:1.5.1
-          args: ["-config", "/run/spire/config/agent.conf"]
+          args: [ "-config", "/run/spire/config/agent.conf" ]
           volumeMounts:
             - name: spire-config
               mountPath: /run/spire/config
