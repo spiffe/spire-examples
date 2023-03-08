@@ -27,7 +27,7 @@ failures and scalability.
 + **stateless** - To run the SPIRE server stateless (as in this example), the
   `UpstreamAuthority` plugin needs to be used.
 + **stateful** - To run the SPIRE server stateful, the directory specified in
-  `data_dir` must be persistent (such as in the [simple sat example](../simple_sat)
+  `data_dir` must be persistent (such as in the [simple sat example](../simple_sat))
   where a StatefulSet and PersistentVolumeClaim are used.
 
 In this example deployment, the SPIRE server is stateless, using the example
@@ -69,3 +69,8 @@ Start the agent DaemonSet:
 ```
 $ kubectl apply -f spire-agent.yaml
 ```
+
+## Test
+
+Simply run `./test.sh`, this script will start a cluster using [kind](https://kind.sigs.k8s.io/), deploy the postgres database,
+spire server and agent, and run a simple test to verify the node attestation process.

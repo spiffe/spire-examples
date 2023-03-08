@@ -8,27 +8,10 @@ This configuration is an example of a simple SPIRE 1.5.1 deployment for Kubernet
 
 Both SPIRE agent and server run in the **spire** namespace, using service
 accounts of **spire-server** and **spire-agent**.
-Also RBAC authorization policies are set in order to guarantee access to certain API server resources.
+Also, RBAC authorization policies are set in order to guarantee access to certain API server resources.
 
 ## Usage
 
-### Configuration
-
-The following flags must be passed to the Kubernetes API server to properly run this PSAT attestor example:
-+ `service-account-signing-key-file`
-+ `service-account-key-file`
-+ `service-account-issuer`
-+ `service-account-api-audiences`
-
-If you are using minikube, make sure it is started as follows:
-```
-minikube start  --driver=virtualbox \
-                --extra-config=apiserver.authorization-mode=Node,RBAC \
-                --extra-config=apiserver.service-account-signing-key-file=/var/lib/minikube/certs/sa.key \
-                --extra-config=apiserver.service-account-key-file=/var/lib/minikube/certs/sa.pub \
-                --extra-config=apiserver.service-account-issuer=api \
-                --extra-config=apiserver.service-account-api-audiences=api,spire-server
-```
 
 ### Deployment
 
@@ -45,3 +28,8 @@ $ kubectl apply -f spire-agent.yaml
 ```
 
 The agent should automatically attest to SPIRE server.
+
+## Test
+
+Simply run `./test.sh`, this script will start a cluster using [kind](https://kind.sigs.k8s.io/), deploy spire server and
+agent, and run a simple test to verify the node attestation process using PSAT NodeAttestor.

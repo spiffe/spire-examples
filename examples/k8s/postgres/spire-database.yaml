@@ -1,3 +1,4 @@
+# Create a namespace for the SPIRE Server and Agent
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -5,6 +6,7 @@ metadata:
 
 ---
 
+# Service account for the spire-database
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -13,6 +15,7 @@ metadata:
 
 ---
 
+# StatefulSet for the spire-database
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -71,6 +74,7 @@ spec:
 
 ---
 
+# Service for the spire-database, so that the spire-server can connect to it
 kind: Service
 apiVersion: v1
 metadata:

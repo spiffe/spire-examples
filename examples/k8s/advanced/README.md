@@ -9,4 +9,9 @@ The Kubernetes cluster is running SPIRE and spiffe-helper, and spiffe-helper is 
 to push certificates into a Postgres database for authentication. 
 
 Because spiffe-helper has to be inside the same image as the Postgres server, these scripts
-create a new image containg Postgres and spiffe-helper.
+create a new image containing Postgres and spiffe-helper.
+
+
+> **Deprecation Note**
+> k8s-workload-registrar is deprecated, we recommend using the [spire-controller-manager](https://github.com/spiffe/spire-controller-manager),
+> which is a Kubernetes controller used to manage registration entries and federation. A demo can be found [here](https://github.com/spiffe/spire-controller-manager/tree/main/demo)

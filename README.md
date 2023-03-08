@@ -4,7 +4,7 @@
 
 Hello, and welcome to SPIRE examples!
 
-This repository houses various SPIFFE/SPIRE deployment and integration examples. All examples are self contained, and come with instructions on how to use them.
+This repository houses various SPIFFE/SPIRE deployment and integration examples. All examples are self-contained, and come with instructions on how to use them.
 
 The SPIRE project is growing rapidly, and new features are released often. In order to ensure the accuracy of accompanying documentation, each example is written against a specific version of SPIRE. All examples are regularly tested against the stated SPIRE version, but are likely to work with newer versions as well.
 

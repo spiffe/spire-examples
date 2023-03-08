@@ -1,3 +1,4 @@
+# Service account for the spire-agent
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -6,6 +7,7 @@ metadata:
 
 ---
 
+# Config map for the spire-agent, which contains the agent configuration file and the trust bundle certificate
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -73,6 +75,7 @@ data:
 
 ---
 
+# Daemonset for spire-agent
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
