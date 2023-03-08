@@ -1,3 +1,4 @@
+# Create the spire namespace
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -5,6 +6,7 @@ metadata:
 
 ---
 
+# Service account for the spire-server
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -13,6 +15,36 @@ metadata:
 
 ---
 
+# Cluster role allowed to create resource "tokenreviews" in API group "authentication.k8s.io".
+# This is required by the spire-server to authenticate agents using [Token Review API](https://kubernetes.io/docs/reference/kubernetes-api/authentication-resources/token-review-v1/)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: spire-server
+rules:
+  - apiGroups: [ "authentication.k8s.io" ]
+    resources: [ "tokenreviews" ]
+    verbs: [ "create" ]
+
+---
+
+# Bind the spire-server service account to the role created above
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: spire-server
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: spire-server
+subjects:
+  - kind: ServiceAccount
+    name: spire-server
+    namespace: spire
+
+---
+
+# Create the upstream authority private key
 apiVersion: v1
 kind: Secret
 metadata:
@@ -24,6 +56,7 @@ data:
 
 ---
 
+# Config map for the spire-server, which contains the server configuration file
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -56,7 +89,7 @@ data:
         plugin_data {
           clusters = {
             "demo-cluster" = {
-              service_account_key_file = "/run/k8s-certs/sa.pub"
+              use_token_review_api_validation = true
               service_account_allow_list = ["spire:spire-agent"]
             }
           }
@@ -100,6 +133,7 @@ data:
 
 ---
 
+# Create the spire-server stateful set
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -123,7 +157,7 @@ spec:
       containers:
         - name: spire-server
           image: ghcr.io/spiffe/spire-server:1.5.1
-          args: ["-config", "/run/spire/config/server.conf"]
+          args: [ "-config", "/run/spire/config/server.conf" ]
           ports:
             - containerPort: 8081
           volumeMounts:
@@ -136,9 +170,6 @@ spec:
             - name: spire-data
               mountPath: /run/spire/data
               readOnly: false
-            - name: k8s-sa-cert
-              mountPath: /run/k8s-certs/sa.pub
-              readOnly: true
           livenessProbe:
             httpGet:
               path: /live
@@ -160,10 +191,6 @@ spec:
         - name: spire-secrets
           secret:
             secretName: spire-server
-        - name: k8s-sa-cert
-          hostPath:
-            path: /var/lib/minikube/certs/sa.pub
-            type: File
   volumeClaimTemplates:
     - metadata:
         name: spire-data
@@ -177,6 +204,7 @@ spec:
 
 ---
 
+# Create the spire-server service binding to the spire-server stateful set
 apiVersion: v1
 kind: Service
 metadata:

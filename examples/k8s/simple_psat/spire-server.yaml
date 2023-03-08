@@ -1,3 +1,4 @@
+# Create a namespace for spire-server
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -5,6 +6,7 @@ metadata:
 
 ---
 
+# Service account for the spire-server
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -44,6 +46,7 @@ roleRef:
 
 ---
 
+# Create the upstream authority private key
 apiVersion: v1
 kind: Secret
 metadata:
@@ -55,6 +58,7 @@ data:
 
 ---
 
+# Config map for the spire-server, which contains the server configuration file
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -130,6 +134,7 @@ data:
 
 ---
 
+# Stateful set for the spire-server
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:

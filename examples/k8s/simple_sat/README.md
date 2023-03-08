@@ -31,3 +31,9 @@ Start the agent DaemonSet:
 ```
 $ kubectl apply -f spire-agent.yaml
 ```
+
+## Test
+
+Simply run `./test.sh`, this script will start a cluster using [kind](https://kind.sigs.k8s.io/), deploy spire server and
+agent, and run a simple test to verify the node attestation process using SAT NodeAttestor.
+
