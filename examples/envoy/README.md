@@ -43,7 +43,7 @@ Open up a browser to http://localhost:8080 to test out:
 - mTLS connection between Web and Echo servers via Envoy
 - TLS connection between Web and Echo servers via Envoy
 
-**NOTE** It may take a 30 seconds or so for Envoy to reconnect to upstream
+**NOTE** It may take 30 seconds or so for Envoy to reconnect to upstream
 after the registration entries are created.
 
 ## Clean up
