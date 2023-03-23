@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: ghcr.io/spiffe/spire-agent:1.5.1
+          image: ghcr.io/spiffe/spire-agent:1.6.1
           imagePullPolicy: Always
           command: ["/opt/spire/bin/spire-agent"]
           args: ["api", "watch", "-socketPath", "/run/spire/sockets/agent.sock"]
