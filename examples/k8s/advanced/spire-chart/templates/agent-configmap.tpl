@@ -32,6 +32,7 @@ data:
           {{- else }}
           skip_kubelet_verification = true
           {{- end }}
+          node_name_env = "MY_NODE_NAME"
         }
       }
     }

@@ -31,6 +31,11 @@ spec:
           image: ghcr.io/spiffe/spire-agent:1.6.1
           imagePullPolicy: Always
           args: ["-config", "/run/spire/config/spire-agent.conf"]
+          env:
+          - name: MY_NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
           volumeMounts:
             - name: spire-config
               mountPath: /run/spire/config

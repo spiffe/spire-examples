@@ -65,6 +65,7 @@ data:
 
       WorkloadAttestor "k8s" {
         plugin_data {
+          node_name_env = "MY_NODE_NAME"
         }
       }
 
@@ -129,6 +130,11 @@ spec:
         - name: spire-agent
           image: ghcr.io/spiffe/spire-agent:1.6.1
           args: ["-config", "/run/spire/config/agent.conf"]
+          env:
+          - name: MY_NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
           volumeMounts:
             - name: spire-config
               mountPath: /run/spire/config
