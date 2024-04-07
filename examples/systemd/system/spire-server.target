@@ -1,0 +1,8 @@
+[Unit]
+Description=SPIRE Server target allowing to start/stop all spire-server@.service instances at once
+PartOf=spire.target
+Before=ceph.target
+Wants=spire.target
+
+[Install]
+WantedBy=multi-user.target spire.target
