@@ -1,4 +1,4 @@
-To install, download the newest spire-server and spire-agent binaries from the spire website and place in /bin
+To install, download the newest spire-server and spire-agent binaries from the SPIRE website and place in /bin
 
 Run:
 ```
@@ -36,5 +36,5 @@ systemctl enable spire-agent@main
 
 # Show Entries from the main server
 ```
-spire-server entry show -socketPath /run/spire/server/main/private/api.sock
+spire-server entry show -socketPath /run/spire/server/sockets/main/private/api.sock
 ```

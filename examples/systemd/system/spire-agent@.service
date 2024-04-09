@@ -8,11 +8,11 @@ Wants=network-online.target local-fs.target time-sync.target remote-fs-pre.targe
 [Service]
 WorkingDirectory=/var/lib/spire/agent/%i
 StateDirectory=spire/agent/%i
-RuntimeDirectory=spire/agent/%i
+RuntimeDirectory=spire/agent/sockets/%i
 RuntimeDirectoryPreserve=true
 ConfigurationDirectory=spire/agent
 ExecReload=/bin/kill -HUP $MAINPID
-ExecStart=/bin/spire-agent run -config /etc/spire/agent/%i.conf -dataDir /var/lib/spire/agent/%i -socketPath /run/spire/agent/%i/public/api.sock -expandEnv
+ExecStart=/bin/spire-agent run -config /etc/spire/agent/%i.conf -dataDir /var/lib/spire/agent/%i -socketPath /run/spire/agent/sockets/%i/public/api.sock -expandEnv
 ExecStartPre=mkdir -p /var/lib/spire/agent/%i /run/spire/agent/%i/public
 # https://gist.github.com/ageis/f5595e59b1cddb1513d1b425a323db04
 LockPersonality=true
