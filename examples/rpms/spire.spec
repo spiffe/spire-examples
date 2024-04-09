@@ -6,14 +6,14 @@
 # the file your looking for.
 #
 # If you are looking at using this file as a base for your own work, please
-# don't. It is a horrible example. Please look elsewhere,
+# don't. It is a horrible example. Please look elsewhere.
 #
 # If you are a package maintainer, please read on. We recognize this spec file
 # is blasphemous, a terrible abomination, a crime against nature, and more. We
-# regret needing to produce it in order to attract enough users to find you. We
-# beseech thee, kind and generous package maintainer, please help us mend our
-# wicked ways by joining us and help us produce proper packaging. You are our
-# only hope.
+# regret needing to produce it, but had to in order to attract enough users to
+# find you. We beseech thee, kind and generous package maintainer, please help
+# us mend our wicked ways by joining us and help us produce proper packaging.
+# You are our only hope.
 #
 ##############################################################################
 
