@@ -12,7 +12,7 @@
 # is blasphemous, an terrible abomination, a crime against nature, and more. We
 # regret needing to produce it in order to attract enough users to find you. We
 # beseech thee, kind and generous package maintainer, please help us mend our
-# wicked ways by joining is us and help us produce proper packaging. Your our
+# wicked ways by joining us and help us produce proper packaging. Your our
 # only hope.
 #
 ##############################################################################
