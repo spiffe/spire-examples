@@ -91,7 +91,9 @@ rm -rf %{buildroot}
 %files -n spire-server
 /usr/lib/systemd/system/spire-server@.service
 /bin/spire-server
+%config(noreplace) /etc/spire/server/main.conf
 
 %files -n spire-agent
 /usr/lib/systemd/system/spire-agent@.service
 /bin/spire-agent
+%config(noreplace) /etc/spire/agent/main.conf
