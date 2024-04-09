@@ -35,12 +35,35 @@ Requires: spire-common
 %description -n spire-server
 SPIRE Server
 
+%preun -n spire-server
+%if 0%{?suse_version}
+%service_del_preun spire-server@\*.service spire-server.target
+%endif
+%if 0%{?fedora} || 0%{?rhel} || 0%{?openEuler}
+%systemd_preun spire-server@\*.service spire-server.target
+%endif
+
+%postun -n spire-server
+%systemd_postun spire-server@\*.service spire-server.target
+
 %package -n spire-agent
 Summary: SPIRE Agent
 Requires: spire-common
 %description -n spire-agent
 SPIRE Agent
 
+%preun -n spire-agent
+%if 0%{?suse_version}
+%service_del_preun spire-agent@\*.service spire-agent.target
+%endif
+%if 0%{?fedora} || 0%{?rhel} || 0%{?openEuler}
+%systemd_preun spire-agent@\*.service spire-agent.target
+%endif
+
+%postun -n spire-agent
+%systemd_postun spire-agent@\*.service spire-agent.target
+
+%global _missing_build_ids_terminate_build 0
 %global debug_package %{nil}
 
 %prep
