@@ -9,7 +9,7 @@
 # don't. It is a horrible example. Please look elsewhere,
 #
 # If you are a package maintainer, please read on. We recognize this spec file
-# is blasphemous, an terrible abomination, a crime against nature, and more. We
+# is blasphemous, a terrible abomination, a crime against nature, and more. We
 # regret needing to produce it in order to attract enough users to find you. We
 # beseech thee, kind and generous package maintainer, please help us mend our
 # wicked ways by joining us and help us produce proper packaging. You are our
