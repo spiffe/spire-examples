@@ -11,7 +11,6 @@ StateDirectory=spire/server/%i
 RuntimeDirectory=spire/server/sockets/%i
 RuntimeDirectoryPreserve=true
 ConfigurationDirectory=spire/server
-ExecReload=/bin/kill -HUP $MAINPID
 ExecStart=/bin/spire-server run -config /etc/spire/server/%i.conf -dataDir /var/lib/spire/server/%i -socketPath /run/spire/server/sockets/%i/private/api.sock -expandEnv
 ExecStartPre=mkdir -p /var/lib/spire/server/%i /run/spire/server/%i/private
 # https://gist.github.com/ageis/f5595e59b1cddb1513d1b425a323db04
