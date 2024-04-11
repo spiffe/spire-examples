@@ -7,8 +7,6 @@ make install
 
 Edit /etc/spire/server/main.conf and update with settings as needed.
 
-Edit /etc/spire/agent/main.conf and update with settings as needed.
-
 Enable the main server:
 
 ```
@@ -18,8 +16,16 @@ systemctl enable spire-server@main
 Start the main server:
 
 ```
-systemctl enable spire-server@main
+systemctl start spire-server@main
 ```
+
+
+# Create a join token
+```
+spire-server token generate -spiffeID spiffe://example.org/changeme -socketPath /run/spire/server/sockets/main/private/api.sock
+```
+
+Edit /etc/spire/agent/main.conf and update with settings as needed, in particular the join token.
 
 Enable the main agent:
 
@@ -27,10 +33,10 @@ Enable the main agent:
 systemctl enable spire-agent@main
 ```
 
-Start the main server:
+Start the main agent:
 
 ```
-systemctl enable spire-agent@main
+systemctl start spire-agent@main
 ```
 
 
