@@ -42,6 +42,9 @@ spec:
             - name: spire-agent-socket
               mountPath: /run/spire/sockets
               readOnly: false
+            - name: spire-agent-data
+              mountPath: /run/spire
+              readOnly: false
             - name: spire-bundle
               mountPath: /run/spire/bundle
               readOnly: true
@@ -71,6 +74,10 @@ spec:
         - name: spire-agent-socket
           hostPath:
             path: /run/spire/sockets
+            type: DirectoryOrCreate
+        - name: spire-agent-data
+          hostPath:
+            path: /run/spire
             type: DirectoryOrCreate
         - name: spire-agent-token
           projected:
