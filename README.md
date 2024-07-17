@@ -38,6 +38,12 @@ Examples showing how to deploy SPIRE on Amazon EKS.
 + [EKS-based SAT with SPIRE 1.5.1](examples/k8s/eks_sat) - This slightly modifies the **Kubernetes Simple SAT** configuration to
   make it compatible with EKS platform.
 
+## SystemD
+
+Examples showing how to start up SPIRE services using SystemD
+
+* [SystemD](examples/systemd) SPIRE services managed by SystemD
+
 ## Getting Help
 
 If you have any questions on the above examples, or anything else related to deploying or maintaining SPIRE, please feel free to either [open an issue](https://github.com/spiffe/spire-examples/issues/new) or ask in #help on our [Slack](https://slack.spiffe.io/).

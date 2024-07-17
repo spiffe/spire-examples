@@ -1,0 +1,5 @@
+[Unit]
+Description=SPIRE target allowing to start/stop all spire*@.service instances at once
+
+[Install]
+WantedBy=multi-user.target
