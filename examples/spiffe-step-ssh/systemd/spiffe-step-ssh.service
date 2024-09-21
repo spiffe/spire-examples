@@ -1,0 +1,9 @@
+[Unit]
+Description=SPIFFE step-ca SSH Helper
+After=network-online.target local-fs.target time-sync.target
+Wants=network-online.target local-fs.target time-sync.target spire-agent.target
+
+[Service]
+EnvironmentFile=/etc/spiffe-step-ssh.conf
+ExecStart=spiffe-helper -config /usr/libexec/spiffe-step-ssh/helper.conf
+ExecStartPre=mkdir -p /var/run/spiffe-step-ssh && chmod 700 /var/run/spiffe-step-ssh
