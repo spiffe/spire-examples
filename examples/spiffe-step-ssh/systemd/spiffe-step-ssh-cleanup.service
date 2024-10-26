@@ -1,0 +1,11 @@
+[Unit]
+Description=SPIFFE step-ca SSH Cleanup
+DefaultDependencies=no
+Before=shutdown.target reboot.target halt.target
+
+[Service]
+ExecStart=/usr/libexec/spiffe-step-ssh/reset.sh
+Type=oneshot
+
+[Install]
+WantedBy=shutdown.target
