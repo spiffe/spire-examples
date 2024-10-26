@@ -7,7 +7,7 @@ cd /tmp
 curl -L -o helper.tgz https://github.com/spiffe/spiffe-helper/releases/download/v0.8.0/spiffe-helper-v0.8.0.tar.gz
 tar -xvf helper.tgz
 mv spiffe-helper /bin
-curl -L -o spire.tgz "https://github.com/spiffe/spire/releases/download/v1.10.4/spire-1.10.4-linux-${ARCH}-musl.tar.gz"
+curl -L -o spire.tgz "https://github.com/spiffe/spire/releases/download/v1.11.0/spire-1.11.0-linux-${ARCH}-musl.tar.gz"
 tar -xvf spire.tgz
 mv spire-*/bin/spire-agent /bin
 curl -L -o step.tgz "https://dl.smallstep.com/gh-release/cli/gh-release-header/v0.27.4/step_linux_0.27.4_${ARCH}.tar.gz"
