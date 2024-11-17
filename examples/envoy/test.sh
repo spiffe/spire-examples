@@ -13,12 +13,12 @@ search_occurrences() {
 
 cleanup() {
   echo "${bold}Cleaning up...${norm}"
-  docker-compose -f "${DIR}"/docker-compose.yml down
+  docker compose -f "${DIR}"/docker-compose.yml down
 }
 
 set_env() {
   "${DIR}"/build.sh > /dev/null
-  docker-compose -f "${DIR}"/docker-compose.yml up -d
+  docker compose -f "${DIR}"/docker-compose.yml up -d
   "${DIR}"/1-start-services.sh
   "${DIR}"/2-start-spire-agents.sh
   "${DIR}"/3-create-registration-entries.sh > /dev/null
