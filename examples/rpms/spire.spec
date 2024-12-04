@@ -76,7 +76,7 @@ SPIRE Agent
 
 mkdir -p "%{buildroot}/bin"
 cp "spire-%{version}"/bin/* "%{buildroot}/bin"
-git clone https://github.com/kfox1111/spire-examples
+git clone https://github.com/spiffe/spire-examples
 cd spire-examples
 git checkout systemd
 cd examples/systemd
