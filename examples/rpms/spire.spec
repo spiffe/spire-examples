@@ -78,7 +78,6 @@ mkdir -p "%{buildroot}/bin"
 cp "spire-%{version}"/bin/* "%{buildroot}/bin"
 git clone https://github.com/spiffe/spire-examples
 cd spire-examples
-git checkout systemd
 cd examples/systemd
 make install DESTDIR="%{buildroot}"
 
