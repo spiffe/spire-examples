@@ -19,7 +19,7 @@
 
 Summary:    SPIRE components
 Name:       spire-common
-Version:    1.9.4
+Version:    1.11.0
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
