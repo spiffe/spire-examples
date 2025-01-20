@@ -19,7 +19,7 @@ MemoryDenyWriteExecute=true
 NoNewPrivileges=true
 PrivateDevices=false
 # Needed by plugins
-PrivateTmp=false
+PrivateTmp=true
 ProtectControlGroups=true
 ProtectHome=true
 ProtectHostname=true
