@@ -1,5 +1,6 @@
 [![Build Status](https://github.com/spiffe/spire-examples/actions/workflows/pr_build.yaml/badge.svg)](https://github.com/spiffe/spire-examples/actions/workflows/pr_build.yaml)
 
+
 # SPIRE Examples
 
 Hello, and welcome to SPIRE examples!
