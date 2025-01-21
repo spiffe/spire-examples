@@ -2,8 +2,8 @@
 Description=SPIRE Agent Daemon %i
 PartOf=spire-agent.target
 After=network-online.target local-fs.target time-sync.target
-Before=remote-fs-pre.target spire-agent.target
 Wants=network-online.target local-fs.target time-sync.target remote-fs-pre.target spire-agent.target
+StartLimitIntervalSec=0
 
 [Service]
 WorkingDirectory=/var/lib/spire/agent/%i
@@ -11,8 +11,13 @@ StateDirectory=spire/agent/%i
 RuntimeDirectory=spire/agent/sockets/%i
 RuntimeDirectoryPreserve=true
 ConfigurationDirectory=spire/agent
-ExecStart=/bin/spire-agent run -config /etc/spire/agent/%i.conf -dataDir /var/lib/spire/agent/%i -socketPath /run/spire/agent/sockets/%i/public/api.sock -expandEnv
+EnvironmentFile=-/etc/spiffe/default-trust-domain.env
+EnvironmentFile=-/etc/spire/agent/%i.env
+Environment=INSTANCE=%i
+Environment="SPIRE_AGENT_ADMIN_ADDRESS=/var/run/spire/agent/sockets/%i/private/admin.sock"
+ExecStart=/bin/spire-agent run -config /var/lib/spire/agent/%i/config -dataDir /var/lib/spire/agent/%i -socketPath /run/spire/agent/sockets/%i/public/api.sock -expandEnv
 ExecStartPre=mkdir -p /var/lib/spire/agent/%i /run/spire/agent/%i/public
+ExecStartPre=/bin/bash -c "if [ -f /etc/spire/agent/%i.conf ]; then cp -a /etc/spire/agent/%i.conf /var/lib/spire/agent/%i/config; else cp -a /etc/spire/agent/default.conf /var/lib/spire/agent/%i/config; fi"
 # https://gist.github.com/ageis/f5595e59b1cddb1513d1b425a323db04
 LockPersonality=true
 MemoryDenyWriteExecute=true
@@ -29,14 +34,12 @@ ProtectKernelTunables=true
 ProtectSystem=strict
 ReadOnlyPaths=/
 ReadWritePaths=/var/lib/spire/agent /run/spire/agent
-Restart=on-failure
-RestartSec=15
+Restart=always
+RestartSec=5s
 RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
 RestrictNamespaces=true
 RestrictRealtime=yes
 RestrictSUIDSGID=yes
-StartLimitBurst=3
-StartLimitInterval=30min
 TasksMax=infinity
 
 [Install]
