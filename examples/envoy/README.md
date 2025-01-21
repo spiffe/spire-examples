@@ -1,9 +1,12 @@
 # Envoy 1.17.0 SDS Example with SPIRE 1.5.1
 
+[!WARNING]  
+This example is no longer tested regularly. Some assembly may be required. Please let us know if changes are needed.
+
 ## Requirements
 
 - Go 1.14+
-- docker-compose
+- docker compose
 
 ## Build
 
@@ -14,7 +17,7 @@ $ ./build.sh
 ## Run
 
 ```
-$ docker-compose up -d
+$ docker compose up -d
 ```
 
 ## Start Web and Echo Servers
@@ -49,7 +52,7 @@ after the registration entries are created.
 ## Clean up
 
 ```
-$ docker-compose down
+$ docker compose down
 ```
 
 ## Miscellaneous

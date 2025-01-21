@@ -1,0 +1,45 @@
+[Unit]
+Description=SPIRE Server Daemon %i
+PartOf=spire-server.target
+After=network-online.target local-fs.target time-sync.target
+Wants=network-online.target local-fs.target time-sync.target remote-fs-pre.target spire-server.target
+StartLimitIntervalSec=0
+
+[Service]
+WorkingDirectory=/var/lib/spire/server/%i
+StateDirectory=spire/server/%i
+RuntimeDirectory=spire/server/sockets/%i
+RuntimeDirectoryPreserve=true
+ConfigurationDirectory=spire/server
+EnvironmentFile=-/etc/spiffe/default-trust-domain.env
+EnvironmentFile=-/etc/spire/server/%i.env
+Environment=INSTANCE=%i
+ExecStart=/bin/spire-server run -config /var/lib/spire/server/%i/config -dataDir /var/lib/spire/server/%i -socketPath /run/spire/server/sockets/%i/private/api.sock -expandEnv
+ExecStartPre=mkdir -p /var/lib/spire/server/%i /run/spire/server/%i/private /etc/spire/server/%i/tpm-direct/hashes
+ExecStartPre=/bin/bash -c "if [ -f /etc/spire/server/%i.conf ]; then cp -a /etc/spire/server/%i.conf /var/lib/spire/server/%i/config; else cp -a /etc/spire/server/default.conf /var/lib/spire/server/%i/config; fi"
+# https://gist.github.com/ageis/f5595e59b1cddb1513d1b425a323db04
+LockPersonality=true
+MemoryDenyWriteExecute=true
+NoNewPrivileges=true
+PrivateDevices=false
+# Needed by plugins
+PrivateTmp=true
+ProtectControlGroups=true
+ProtectHome=true
+ProtectHostname=true
+ProtectKernelLogs=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectSystem=strict
+ReadOnlyPaths=/
+ReadWritePaths=/var/lib/spire/server /run/spire/server
+Restart=always
+RestartSec=5s
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+RestrictNamespaces=true
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+TasksMax=infinity
+
+[Install]
+WantedBy=spire-server.target

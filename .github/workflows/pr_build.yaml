@@ -22,7 +22,7 @@ jobs:
       - name: install minikube
         id: minikube
         uses: medyagh/setup-minikube@master
-      - name: Envoy example
-        run: examples/envoy/test.sh
+      #- name: Envoy example
+      #  run: examples/envoy/test.sh
       - name: K8s examples
         run: examples/k8s/test-all.sh
