@@ -19,7 +19,7 @@
 
 Summary:    SPIRE components
 Name:       spire-common
-Version:    1.11.0
+Version:    1.11.1
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
@@ -86,13 +86,14 @@ rm -rf %{buildroot}
 
 %files
 /usr/lib/systemd/system/*.target
+%config(noreplace) /etc/spiffe/default-trust-domain.env
 
 %files -n spire-server
 /usr/lib/systemd/system/spire-server@.service
 /bin/spire-server
-%config(noreplace) /etc/spire/server/main.conf
+%config(noreplace) /etc/spire/server/default.conf
 
 %files -n spire-agent
 /usr/lib/systemd/system/spire-agent@.service
 /bin/spire-agent
-%config(noreplace) /etc/spire/agent/main.conf
+%config(noreplace) /etc/spire/agent/default.conf
