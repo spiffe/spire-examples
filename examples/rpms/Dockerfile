@@ -22,11 +22,13 @@ RUN \
   apt-get install -y alien && \
   mkdir -p /root/debbuild && \
   cd /root/debbuild && \
+  mkdir $(dpkg --print-architecture) && \
+  cd * && \
   alien -k -c --to-deb /root/rpmbuild/RPMS/*/*.rpm
 
 RUN \
-  apt-get install -y /root/debbuild/*.deb
+  apt-get install -y /root/debbuild/*/*.deb
 
 FROM docker.io/library/nginx:latest
-COPY --from=rpm-builder /root/rpmbuild/RPMS /usr/share/nginx/html/RPMS
-COPY --from=deb-builder /root/debbuild /usr/share/nginx/html/DEBS
+COPY --from=rpm-builder /root/rpmbuild/RPMS /usr/share/nginx/html/packages/RPMS
+COPY --from=deb-builder /root/debbuild /usr/share/nginx/html/packages/DEBS
