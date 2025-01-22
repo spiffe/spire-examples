@@ -26,3 +26,26 @@ jobs:
       #  run: examples/envoy/test.sh
       - name: K8s examples
         run: examples/k8s/test-all.sh
+  packages:
+    strategy:
+      matrix:
+        os: [ubuntu-24.04]
+        arch: ["", "-arm"]
+    runs-on: ${{ matrix.os }}${{ matrix.arch }}
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - run: |
+          set -xe
+          echo "building: {{github.ref_name}}-$(uname -i)"
+          docker build -t t examples/rpmsA
+          mkdir -p /tmp/packages
+          docker run -it --rm -v /tmp:/tmp t cp -a /usr/share/nginx/html/* /tmp/packages
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: packages
+          retention-days: 7
+          path: |
+            /tmp/packages

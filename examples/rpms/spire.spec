@@ -25,6 +25,7 @@ Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io
 Source0:    https://github.com/spiffe/spire/releases/download/v%{version}/spire-%{version}-linux-amd64-musl.tar.gz
+Source1:    https://github.com/spiffe/spire/releases/download/v%{version}/spire-extras-%{version}-linux-amd64-musl.tar.gz
 
 %description
 SPIRE Common
@@ -63,12 +64,19 @@ SPIRE Agent
 %postun -n spire-agent
 %systemd_postun spire-agent@\*.service spire-agent.target
 
+%package -n spiffe-oidc-discovery-provider
+Summary: SPIFFE OIDC Discovery Provider
+Requires: spire-common
+%description -n spiffe-oidc-discovery-provider
+SPIFFE OIDC Discovery Provider
+
 %global _missing_build_ids_terminate_build 0
 %global debug_package %{nil}
 
 %prep
 
 %setup -c
+%setup -T -D -a 1
 
 %build
 
@@ -76,6 +84,7 @@ SPIRE Agent
 
 mkdir -p "%{buildroot}/bin"
 cp "spire-%{version}"/bin/* "%{buildroot}/bin"
+cp "spire-extras-%{version}"/bin/oidc-discovery-provider "%{buildroot}/bin/spiffe-oidc-discovery-provider"
 git clone https://github.com/spiffe/spire-examples
 cd spire-examples
 cd examples/systemd
@@ -97,3 +106,6 @@ rm -rf %{buildroot}
 /usr/lib/systemd/system/spire-agent@.service
 /bin/spire-agent
 %config(noreplace) /etc/spire/agent/default.conf
+
+%files -n spiffe-oidc-discovery-provider
+/bin/spiffe-oidc-discovery-provider
