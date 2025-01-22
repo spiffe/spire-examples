@@ -17,6 +17,8 @@
 #
 ##############################################################################
 
+%define ARCH %(echo %{_arch} | sed s/aarch64/arm64/ | sed s/x86_64/amd64/)
+
 Summary:    SPIRE components
 Name:       spire-common
 Version:    1.11.1
@@ -24,8 +26,8 @@ Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io
-Source0:    https://github.com/spiffe/spire/releases/download/v%{version}/spire-%{version}-linux-amd64-musl.tar.gz
-Source1:    https://github.com/spiffe/spire/releases/download/v%{version}/spire-extras-%{version}-linux-amd64-musl.tar.gz
+Source0:    https://github.com/spiffe/spire/releases/download/v%{version}/spire-%{version}-linux-%{ARCH}-musl.tar.gz
+Source1:    https://github.com/spiffe/spire/releases/download/v%{version}/spire-extras-%{version}-linux-%{ARCH}-musl.tar.gz
 
 %description
 SPIRE Common
