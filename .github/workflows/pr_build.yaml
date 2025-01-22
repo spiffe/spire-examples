@@ -41,7 +41,7 @@ jobs:
           echo "building: {{github.ref_name}}-$(uname -i)"
           docker build -t t examples/rpms
           mkdir -p /tmp/packages
-          docker run -it --rm -v /tmp:/tmp t cp -a /usr/share/nginx/html/* /tmp/packages
+          docker run -i --rm -v /tmp:/tmp t cp -a /usr/share/nginx/html/* /tmp/packages
       - name: Archive artifacts
         uses: actions/upload-artifact@v4
         with:
