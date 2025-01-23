@@ -1,17 +1,25 @@
+ARG STEPVER="0.28.2"
+
 FROM docker.io/library/almalinux:9 AS rpm-builder
+ARG STEPVER
 
 WORKDIR /tmp
 
-COPY spire.spec /tmp
-RUN \
-  dnf install -y rpmdevtools rpm-build git make && \
-  spectool -g -R  spire.spec && \
-  rpmbuild -ba spire.spec
+COPY *.spec /tmp
 
 RUN \
+  dnf install -y rpmdevtools rpm-build git make && \
+  spectool -g -R spire.spec && \
+  rpmbuild -ba spire.spec && \
+  spectool -g -R spiffe-step-ssh.spec && \
+  rpmbuild -ba spiffe-step-ssh.spec
+
+RUN \
+  dnf localinstall -y https://github.com/smallstep/cli/releases/download/v${STEPVER}/step-cli-${STEPVER}-1.$(uname -i).rpm && \
   dnf localinstall -y /root/rpmbuild/RPMS/*/*.rpm
 
 FROM docker.io/library/ubuntu:latest AS deb-builder
+ARG STEPVER
 
 COPY --from=rpm-builder /root/rpmbuild/RPMS /root/rpmbuild/RPMS
 
@@ -27,6 +35,8 @@ RUN \
   alien -k -c --to-deb /root/rpmbuild/RPMS/*/*.rpm
 
 RUN \
+  curl -L -o step-cli.deb https://github.com/smallstep/cli/releases/download/v${STEPVER}/step-cli_${STEPVER}-1_$(dpkg --print-architecture).deb && \
+  apt-get install -y ./step-cli.deb && \
   apt-get install -y /root/debbuild/*/*.deb
 
 FROM docker.io/library/nginx:latest
