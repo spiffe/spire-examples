@@ -57,17 +57,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: packages
-          path: /tmp
+          path: /tmp/packages
       - name: Download archived artifact
         uses: actions/download-artifact@v4
         with:
           name: packages-arm
-          path: /tmp
-      - run: |
-          set -xe
-          ls /tmp
-          echo
-          ls /tmp/packages*
+          path: /tmp/packages
       - name: Archive artifacts
         uses: actions/upload-artifact@v4
         with:
