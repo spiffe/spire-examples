@@ -45,6 +45,32 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: packages${{ matrix.arch }}
+          retention-days: 1
+          path: |
+            /tmp/packages
+  combined-packages:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Download archived artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: packages
+          path: /tmp
+      - name: Download archived artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: packages-arm
+          path: /tmp
+      - run: |
+          set -xe
+          ls /tmp
+          echo
+          ls /tmp/packages*
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: all-packages
           retention-days: 7
           path: |
             /tmp/packages
