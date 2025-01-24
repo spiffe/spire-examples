@@ -1,0 +1,48 @@
+name: Release
+on:
+  push:
+    tags:
+      - '*'
+jobs:
+  packages:
+    strategy:
+      matrix:
+        os: [ubuntu-24.04]
+        arch: ["", "-arm"]
+    runs-on: ${{ matrix.os }}${{ matrix.arch }}
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - run: |
+          set -xe
+          echo "building: {{github.ref_name}}-$(uname -i)"
+          docker build -t t examples/rpms
+          docker run -i --rm -v /tmp:/tmp t /bin/bash -c 'cp -a /usr/share/nginx/html/packages /tmp'
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: packages${{ matrix.arch }}
+          retention-days: 1
+          path: |
+            /tmp/packages
+  release:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    needs: packages
+    steps:
+      - name: Download archived artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: packages
+          path: /tmp/packages
+      - name: Download archived artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: packages-arm
+          path: /tmp/packages
+      - name: Release Files
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${GITHUB_REF#refs/tags/}" /tmp/packages/*/*/*
