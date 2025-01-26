@@ -11,6 +11,8 @@ RUN \
   dnf install -y rpmdevtools rpm-build git make && \
   spectool -g -R spire.spec && \
   rpmbuild -ba spire.spec && \
+  spectool -g -R spiffe-helper.spec && \
+  rpmbuild -ba spiffe-helper.spec && \
   spectool -g -R spiffe-step-ssh.spec && \
   rpmbuild -ba spiffe-step-ssh.spec && \
   spectool -g -R spire-ha-agent.spec && \

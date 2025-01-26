@@ -28,8 +28,7 @@ License:    Apache-2.0
 URL:        https://spiffe.io
 Source0:    https://github.com/spiffe/spiffe-step-ssh/archive/refs/tags/v%{version}.tar.gz
 Requires:   step-cli
-#FIXME This still needs upstream changes to package
-#Requires: spiffe-helper
+Requires:   spiffe-helper
 
 %description
 SPIFFE Step SSH
