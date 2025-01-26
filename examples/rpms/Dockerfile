@@ -18,7 +18,11 @@ RUN \
   spectool -g -R k8s-spiffe-workload-jwt-exec-auth.spec && \
   rpmbuild -ba k8s-spiffe-workload-jwt-exec-auth.spec && \
   spectool -g -R k8s-spiffe-workload-auth-config.spec && \
-  rpmbuild -ba k8s-spiffe-workload-auth-config.spec
+  rpmbuild -ba k8s-spiffe-workload-auth-config.spec && \
+  spectool -g -R spire-server-nodeattestor-tpmdirect.spec && \
+  rpmbuild -ba spire-server-nodeattestor-tpmdirect.spec && \
+  spectool -g -R spire-agent-nodeattestor-tpmdirect.spec && \
+  rpmbuild -ba spire-agent-nodeattestor-tpmdirect.spec
 
 RUN \
   dnf localinstall -y https://github.com/smallstep/cli/releases/download/v${STEPVER}/step-cli-${STEPVER}-1.$(uname -i).rpm && \
