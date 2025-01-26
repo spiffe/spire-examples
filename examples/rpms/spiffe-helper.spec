@@ -17,21 +17,20 @@
 #
 ##############################################################################
 
-%define ARCH %(echo %{_arch} | sed s/aarch64/arm64/ | sed s/x86_64/amd64/)
+%define ARCH %(echo %{_arch} | sed s/aarch64/arm64/)
 
-Summary:    SPIFFE Step SSH
-Name:       spiffe-step-ssh
-Version:    0.0.5
+Summary:    SPIFFE Helper
+Name:       spiffe-helper
+Version:    0.9.0
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io
-Source0:    https://github.com/spiffe/spiffe-step-ssh/archive/refs/tags/v%{version}.tar.gz
-Requires:   step-cli
-Requires:   spiffe-helper
+#FIXME grab binaries once they are available
+Source0:    https://github.com/spiffe/spiffe-helper/archive/refs/tags/v%{version}.tar.gz
 
 %description
-SPIFFE Step SSH
+SPIFFE Helper
 
 %global _missing_build_ids_terminate_build 0
 %global debug_package %{nil}
@@ -41,17 +40,15 @@ SPIFFE Step SSH
 %setup -c
 
 %build
+cd spiffe-helper-%{version}
+make
 
 %install
-cd spiffe-step-ssh-%{version}
-make install DESTDIR="%{buildroot}"
+mkdir -p %{buildroot}/usr/bin
+cp spiffe-helper-%{version}/spiffe-helper %{buildroot}/usr/bin
 
 %clean
 rm -rf %{buildroot}
 
 %files
-/usr/libexec/spiffe-step-ssh/*
-/usr/lib/systemd/system/sshd.service.d/10-spiffe-step-ssh.conf
-/usr/lib/systemd/system/spiffe-step-ssh@.service
-/usr/lib/systemd/system/spiffe-step-ssh-cleanup.service
-%config(noreplace) /etc/spiffe/step-ssh
+/usr/bin/spiffe-helper

@@ -34,8 +34,7 @@ SPIRE HA Agent
 
 %package -n spire-trust-sync
 Summary: SPIRE Trust Sync
-#FIXME This still needs upstream changes to package
-#Requires: spiffe-helper
+Requires: spiffe-helper
 %description -n spire-trust-sync
 SPIRE Trust Sync
 

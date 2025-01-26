@@ -27,8 +27,7 @@ Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io
 Source0:    https://github.com/spiffe/k8s-spiffe-workload-auth-config/releases/download/v%{version}/k8s-spiffe-workload-auth-config_Linux_%{ARCH}.tar.gz
-#FIXME This still needs upstream changes to package
-#Requires: spiffe-helper
+Requires:  spiffe-helper
 
 %description
 K8s SPIFFE Workload Auth Config
