@@ -17,22 +17,21 @@
 #
 ##############################################################################
 
-%define ARCH %(echo %{_arch} | sed s/aarch64/arm64/ | sed s/x86_64/amd64/)
+%define ARCH %(echo %{_arch} | sed s/aarch64/arm64/)
 
-Summary:    SPIFFE Step SSH
-Name:       spiffe-step-ssh
-Version:    0.0.5
+Summary:    K8s SPIFFE Workload Auth Config
+Name:       k8s-spiffe-workload-auth-config
+Version:    0.0.8
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io
-Source0:    https://github.com/spiffe/spiffe-step-ssh/archive/refs/tags/v%{version}.tar.gz
-Requires:   step-cli
+Source0:    https://github.com/spiffe/k8s-spiffe-workload-auth-config/releases/download/v%{version}/k8s-spiffe-workload-auth-config_Linux_%{ARCH}.tar.gz
 #FIXME This still needs upstream changes to package
 #Requires: spiffe-helper
 
 %description
-SPIFFE Step SSH
+K8s SPIFFE Workload Auth Config
 
 %global _missing_build_ids_terminate_build 0
 %global debug_package %{nil}
@@ -44,15 +43,20 @@ SPIFFE Step SSH
 %build
 
 %install
-cd spiffe-step-ssh-%{version}
-make install DESTDIR="%{buildroot}"
+mkdir -p "%{buildroot}/usr/bin"
+mkdir -p "%{buildroot}/etc/spiffe"
+mkdir -p "%{buildroot}/etc/kubernetes"
+mkdir -p "%{buildroot}/usr/lib/systemd/system"
+cp -a k8s-spiffe-workload-auth-config %{buildroot}/usr/bin
+cp -a config/k8s-spiffe-workload-auth-config.env %{buildroot}/etc/spiffe
+cp -a config/auth-config.yaml %{buildroot}/etc/kubernetes/
+cp -a systemd/k8s-spiffe-workload-auth-config.service %{buildroot}/usr/lib/systemd/system
 
 %clean
 rm -rf %{buildroot}
 
 %files
-/usr/libexec/spiffe-step-ssh/*
-/usr/lib/systemd/system/sshd.service.d/10-spiffe-step-ssh.conf
-/usr/lib/systemd/system/spiffe-step-ssh@.service
-/usr/lib/systemd/system/spiffe-step-ssh-cleanup.service
-%config(noreplace) /etc/spiffe/step-ssh
+/usr/bin/k8s-spiffe-workload-auth-config
+/usr/lib/systemd/system/k8s-spiffe-workload-auth-config.service
+%config(noreplace) /etc/spiffe/k8s-spiffe-workload-auth-config.env
+%config(noreplace) /etc/kubernetes/auth-config.yaml

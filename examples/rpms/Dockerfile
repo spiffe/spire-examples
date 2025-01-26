@@ -14,7 +14,11 @@ RUN \
   spectool -g -R spiffe-step-ssh.spec && \
   rpmbuild -ba spiffe-step-ssh.spec && \
   spectool -g -R spire-ha-agent.spec && \
-  rpmbuild -ba spire-ha-agent.spec
+  rpmbuild -ba spire-ha-agent.spec && \
+  spectool -g -R k8s-spiffe-workload-jwt-exec-auth.spec && \
+  rpmbuild -ba k8s-spiffe-workload-jwt-exec-auth.spec && \
+  spectool -g -R k8s-spiffe-workload-auth-config.spec && \
+  rpmbuild -ba k8s-spiffe-workload-auth-config.spec
 
 RUN \
   dnf localinstall -y https://github.com/smallstep/cli/releases/download/v${STEPVER}/step-cli-${STEPVER}-1.$(uname -i).rpm && \
