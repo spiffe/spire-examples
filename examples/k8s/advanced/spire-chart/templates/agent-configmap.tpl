@@ -21,8 +21,9 @@ data:
           cluster = "{{ .Values.clustername }}"
         }
       }
-      KeyManager "memory" {
-        plugin_data {
+      KeyManager "disk" {
+        plugin_data = {
+          directory = "/run/spire"
         }
       }
       WorkloadAttestor "k8s" {
