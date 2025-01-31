@@ -21,7 +21,7 @@
 
 Summary:    SPIFFE Helper
 Name:       spiffe-helper
-Version:    0.9.0
+Version:    0.9.1
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
