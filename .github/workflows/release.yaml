@@ -31,8 +31,11 @@ jobs:
     timeout-minutes: 30
     needs: packages
     permissions:
+      metadata: read
       id-token: write
-      contents: read
+      contents: write
+      pages: write
+      packages: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
