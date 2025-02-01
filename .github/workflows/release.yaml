@@ -31,7 +31,6 @@ jobs:
     timeout-minutes: 30
     needs: packages
     permissions:
-      metadata: read
       id-token: write
       contents: write
       pages: write
