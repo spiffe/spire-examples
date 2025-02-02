@@ -30,7 +30,7 @@ RUN --mount=type=secret,id=gpg \
   if [ -f /run/secrets/gpg ]; then \
     gpg --import /run/secrets/gpg && \
     gpg --import rpm.pub && \
-    rpm --addsign /root/rpmbuild/RPMS/*/*.rpm \
+    rpm --addsign /root/rpmbuild/RPMS/*/*.rpm; \
   else \
     true; \
   fi
