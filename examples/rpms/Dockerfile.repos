@@ -1,0 +1,20 @@
+FROM docker.io/library/almalinux:9 AS rpm-builder
+
+WORKDIR /tmp
+
+COPY packages/RPMS /tmp/packages/RPMS
+COPY packages/DEBS /tmp/packages/DEBS
+
+RUN \
+  dnf install -y createrepo_c && \
+  mkdir -p /tmp/packages/RPMS/x86_64/el9 && \
+  mkdir -p /tmp/packages/RPMS/aarch64/el9 && \
+  cd /tmp/packages/RPMS/x86_64 && \
+  createrepo -u https://spiffe.github.io/spire-examples/RPMS/x86_64 -o el9/ . && \
+  cd /tmp/packages/RPMS/aarch64 && \
+  createrepo -u https://spiffe.github.io/spire-examples/RPMS/aarch64 -o el9/ .
+
+FROM docker.io/library/nginx:latest
+RUN rm -rf /usr/share/nginx/html/*
+COPY --from=rpm-builder /tmp/packages/RPMS /usr/share/nginx/html/RPMS
+#COPY --from=rpm-builder /tmp/packages/DEBS /usr/share/nginx/html/DEBS

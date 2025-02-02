@@ -14,10 +14,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - run: |
-          set -xe
+      - name: build
+        env:
+          RPM_GPG_KEY: ${{ secrets.RPM_GPG_KEY }}
+        run: |
+          set -e
           echo "building: {{github.ref_name}}-$(uname -i)"
-          docker build -t t examples/rpms
+          printf "%s" "$RPM_GPG_KEY" > /tmp/rpm.priv
+          docker build --secret "id=gpg,src=/tmp/rpm.priv" -t t examples/rpms
+          rm -f /tmp/rpm.priv
           docker run -i --rm -v /tmp:/tmp t /bin/bash -c 'cp -a /usr/share/nginx/html/packages /tmp'
       - name: Archive artifacts
         uses: actions/upload-artifact@v4
@@ -48,6 +53,17 @@ jobs:
         with:
           name: packages-arm
           path: /tmp/packages
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3.3.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: build-state-image
+        run: |
+          set -e
+          docker build -f examples/rpms/Dockerfile.repos -t ghcr.io/spiffe/spire-examples/pages:latest /tmp/packages
+          docker push ghcr.io/spiffe/spire-examples/pages:latest
       - name: Release Files
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
