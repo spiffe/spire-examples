@@ -6,9 +6,11 @@ ARG STEPVER
 WORKDIR /tmp
 
 COPY *.spec /tmp
+ADD rpm.pub /tmp/rpm.pub
+ADD rpmmacros /root/.rpmmacros
 
-RUN \
-  dnf install -y rpmdevtools rpm-build git make && \
+RUN --mount=type=secret,id=gpg \
+  dnf install -y which rpmdevtools rpm-build rpm-sign git make && \
   spectool -g -R spire.spec && \
   rpmbuild -ba spire.spec && \
   spectool -g -R spiffe-helper.spec && \
@@ -24,7 +26,14 @@ RUN \
   spectool -g -R spire-server-nodeattestor-tpmdirect.spec && \
   rpmbuild -ba spire-server-nodeattestor-tpmdirect.spec && \
   spectool -g -R spire-agent-nodeattestor-tpmdirect.spec && \
-  rpmbuild -ba spire-agent-nodeattestor-tpmdirect.spec
+  rpmbuild -ba spire-agent-nodeattestor-tpmdirect.spec && \
+  if [ -f /run/secrets/gpg ]; then \
+    gpg --import /run/secrets/gpg && \
+    gpg --import rpm.pub && \
+    rpm --addsign /root/rpmbuild/RPMS/*/*.rpm \
+  else \
+    true; \
+  fi
 
 RUN \
   dnf localinstall -y https://github.com/smallstep/cli/releases/download/v${STEPVER}/step-cli-${STEPVER}-1.$(uname -i).rpm && \
