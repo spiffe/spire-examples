@@ -2,8 +2,8 @@ FROM docker.io/library/almalinux:9 AS rpm-builder
 
 WORKDIR /tmp
 
-COPY packages/RPMS /tmp/packages/RPMS
-COPY packages/DEBS /tmp/packages/DEBS
+COPY RPMS /tmp/packages/RPMS
+COPY DEBS /tmp/packages/DEBS
 
 RUN \
   dnf install -y createrepo_c && \
