@@ -17,4 +17,4 @@ RUN \
 FROM docker.io/library/nginx:latest
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=rpm-builder /tmp/packages/RPMS /usr/share/nginx/html/RPMS
-#COPY --from=rpm-builder /tmp/packages/DEBS /usr/share/nginx/html/DEBS
+COPY --from=rpm-builder /tmp/packages/DEBS /usr/share/nginx/html/DEBS
