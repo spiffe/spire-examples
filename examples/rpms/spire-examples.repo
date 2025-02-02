@@ -1,0 +1,5 @@
+[spire-examples]
+name=spire-examples rpms
+baseurl=https://spiffe.github.io/spire-examples/RPMS/$basearch/el$releasever
+enabled=1
+gpgcheck=0
