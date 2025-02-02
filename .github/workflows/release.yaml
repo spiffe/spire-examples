@@ -82,7 +82,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release upload "${GITHUB_REF#refs/tags/}" examples/rpms/rpm.pub /tmp/packages/*/*/*
+          gh release upload "${GITHUB_REF#refs/tags/}" examples/rpms/rpm.pub /tmp/packages/*/*/*.rpm /tmp/packages/*/*/*.deb
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload Artifact
