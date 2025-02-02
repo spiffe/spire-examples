@@ -70,7 +70,7 @@ jobs:
           # Copy only packages that don't overwrite a previously released package. This prevents rereleasing a package.
           rsync --ignore-existing -rv /tmp/packages/ /tmp/oldpackages/
           rm -rf /tmp/packages
-          mv /tmp/oldpackages /packages
+          sudo mv /tmp/oldpackages /tmp/packages
           # Update repos
           docker build -f examples/rpms/Dockerfile.repos -t ghcr.io/spiffe/spire-examples/pages:latest /tmp/packages
           rm -rf /tmp/packages
