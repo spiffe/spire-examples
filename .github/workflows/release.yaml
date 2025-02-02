@@ -73,7 +73,7 @@ jobs:
           sudo mv /tmp/oldpackages /tmp/packages
           # Update repos
           docker build -f examples/rpms/Dockerfile.repos -t ghcr.io/spiffe/spire-examples/pages:latest /tmp/packages
-          rm -rf /tmp/packages
+          sudo rm -rf /tmp/packages
           mkdir -p /tmp/packages
           docker run -i --rm -v /tmp:/tmp ghcr.io/spiffe/spire-examples/pages:latest /bin/bash -c 'cp -a /usr/share/nginx/html/RPMS /tmp/packages/ && cp -a /usr/share/nginx/html/DEBS /tmp/packages/'
           # Save a copy of packages/pages for next release
