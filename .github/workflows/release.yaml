@@ -62,7 +62,8 @@ jobs:
       - name: build-state-image
         run: |
           set -e
-          apt-get install -y rsync
+          sudo apt-get update
+          sudo apt-get install -y rsync
           # Fetch previously released packages
           mkdir -p /tmp/oldpackages
           docker run -i --rm -v /tmp:/tmp ghcr.io/spiffe/spire-examples/pages:latest /bin/bash -c 'cp -a /usr/share/nginx/html/RPMS /tmp/oldpackages/ && cp -a /usr/share/nginx/html/DEBS /tmp/oldpackages/'
