@@ -19,9 +19,9 @@
 
 %define ARCH %(echo %{_arch} | sed s/aarch64/arm64/)
 
-Summary:    K8s SPIFFE Workload Auth Config
+Summary:    Kubernetes SPIFFE Workload Auth Config
 Name:       k8s-spiffe-workload-auth-config
-Version:    0.0.8
+Version:    0.1.0
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
@@ -30,7 +30,19 @@ Source0:    https://github.com/spiffe/k8s-spiffe-workload-auth-config/releases/d
 Requires:  spiffe-helper
 
 %description
-K8s SPIFFE Workload Auth Config
+Kubernetes SPIFFE Workload Auth Config
+
+%package -n k8s-spiffe-oidc-discovery-provider
+Summary: Kubernetes SPIFFE OIDC Discovery Provider
+Requires: spiffe-helper spiffe-oidc-discovery-provider
+%description -n k8s-spiffe-oidc-discovery-provider
+Kubernetes SPIFFE OIDC Discovery Provider
+
+%package -n k8s-spire-agent
+Summary: Kubernetes SPIRE Agent
+Requires: spiffe-helper
+%description -n k8s-spire-agent
+Kubernetes SPIRE Agent
 
 %global _missing_build_ids_terminate_build 0
 %global debug_package %{nil}
@@ -46,10 +58,15 @@ mkdir -p "%{buildroot}/usr/bin"
 mkdir -p "%{buildroot}/etc/spiffe"
 mkdir -p "%{buildroot}/etc/kubernetes"
 mkdir -p "%{buildroot}/usr/lib/systemd/system"
+mkdir -p "%{buildroot}/usr/libexec/spiffe/k8s-oidc-discovery-provider"
 cp -a k8s-spiffe-workload-auth-config %{buildroot}/usr/bin
 cp -a config/k8s-spiffe-workload-auth-config.env %{buildroot}/etc/spiffe
 cp -a config/auth-config.yaml %{buildroot}/etc/kubernetes/
+cp -a config/k8s-spiffe-oidc-discovery-provider-helper.conf %{buildroot}/usr/libexec/spiffe/k8s-oidc-discovery-provider/helper.conf
+cp -a config/k8s-spiffe-oidc-discovery-provider.conf %{buildroot}/etc/spiffe
 cp -a systemd/k8s-spiffe-workload-auth-config.service %{buildroot}/usr/lib/systemd/system
+cp -a systemd/k8s-spiffe-oidc-discovery-provider.service %{buildroot}/usr/lib/systemd/system
+cp -a systemd/k8s-spire-agent@.service %{buildroot}/usr/lib/systemd/system
 
 %clean
 rm -rf %{buildroot}
@@ -59,3 +76,11 @@ rm -rf %{buildroot}
 /usr/lib/systemd/system/k8s-spiffe-workload-auth-config.service
 %config(noreplace) /etc/spiffe/k8s-spiffe-workload-auth-config.env
 %config(noreplace) /etc/kubernetes/auth-config.yaml
+
+%files -n k8s-spiffe-oidc-discovery-provider
+/usr/lib/systemd/system/k8s-spiffe-oidc-discovery-provider.service
+/usr/libexec/spiffe/k8s-oidc-discovery-provider/helper.conf
+%config(noreplace) /etc/spiffe/k8s-spiffe-oidc-discovery-provider.conf
+
+%files -n k8s-spire-agent
+/usr/lib/systemd/system/k8s-spire-agent@.service
