@@ -68,7 +68,7 @@ jobs:
           mkdir -p /tmp/oldpackages
           docker run -i --rm -v /tmp:/tmp ghcr.io/spiffe/spire-examples/pages:latest /bin/bash -c 'cp -a /usr/share/nginx/html/RPMS /tmp/oldpackages/ && cp -a /usr/share/nginx/html/DEBS /tmp/oldpackages/'
           # Copy only packages that don't overwrite a previously released package. This prevents rereleasing a package.
-          rsync --ignore-existing -rv /tmp/packages/ /tmp/oldpackages/
+          sudo rsync --ignore-existing -rv /tmp/packages/ /tmp/oldpackages/
           rm -rf /tmp/packages
           sudo mv /tmp/oldpackages /tmp/packages
           # Update repos
