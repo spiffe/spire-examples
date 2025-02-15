@@ -21,7 +21,7 @@
 
 Summary:    Kubernetes SPIFFE Workload Auth Config
 Name:       k8s-spiffe-workload-auth-config
-Version:    0.1.0
+Version:    0.2.0
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
@@ -60,10 +60,10 @@ mkdir -p "%{buildroot}/etc/kubernetes"
 mkdir -p "%{buildroot}/usr/lib/systemd/system"
 mkdir -p "%{buildroot}/usr/libexec/spiffe/k8s-oidc-discovery-provider"
 cp -a k8s-spiffe-workload-auth-config %{buildroot}/usr/bin
-cp -a config/k8s-spiffe-workload-auth-config.env %{buildroot}/etc/spiffe
+cp -a config/k8s-spiffe-workload-auth-config.env %{buildroot}/etc/spiffe/k8s-workload-auth-config.env
 cp -a config/auth-config.yaml %{buildroot}/etc/kubernetes/
 cp -a config/k8s-spiffe-oidc-discovery-provider-helper.conf %{buildroot}/usr/libexec/spiffe/k8s-oidc-discovery-provider/helper.conf
-cp -a config/k8s-spiffe-oidc-discovery-provider.conf %{buildroot}/etc/spiffe
+cp -a config/k8s-spiffe-oidc-discovery-provider.conf %{buildroot}/etc/spiffe/k8s-oidc-discovery-provider.conf
 cp -a systemd/k8s-spiffe-workload-auth-config.service %{buildroot}/usr/lib/systemd/system
 cp -a systemd/k8s-spiffe-oidc-discovery-provider.service %{buildroot}/usr/lib/systemd/system
 cp -a systemd/k8s-spire-agent@.service %{buildroot}/usr/lib/systemd/system
@@ -74,13 +74,13 @@ rm -rf %{buildroot}
 %files
 /usr/bin/k8s-spiffe-workload-auth-config
 /usr/lib/systemd/system/k8s-spiffe-workload-auth-config.service
-%config(noreplace) /etc/spiffe/k8s-spiffe-workload-auth-config.env
+%config(noreplace) /etc/spiffe/k8s-workload-auth-config.env
 %config(noreplace) /etc/kubernetes/auth-config.yaml
 
 %files -n k8s-spiffe-oidc-discovery-provider
 /usr/lib/systemd/system/k8s-spiffe-oidc-discovery-provider.service
 /usr/libexec/spiffe/k8s-oidc-discovery-provider/helper.conf
-%config(noreplace) /etc/spiffe/k8s-spiffe-oidc-discovery-provider.conf
+%config(noreplace) /etc/spiffe/k8s-oidc-discovery-provider.conf
 
 %files -n k8s-spire-agent
 /usr/lib/systemd/system/k8s-spire-agent@.service
