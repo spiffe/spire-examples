@@ -22,12 +22,14 @@
 Summary:    SPIRE HA Agent
 Name:       spire-ha-agent
 Version:    0.0.12
-Release:    1
+Release:    2
 Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io
 Source0:    https://github.com/spiffe/spire-ha-agent/releases/download/v%{version}/spire-ha-agent_Linux_%{ARCH}.tar.gz
 Source1:    https://github.com/spiffe/spire-ha-agent/releases/download/v%{version}/spire-trust-sync-helper_Linux_%{ARCH}.tar.gz
+
+%global __strip /bin/true
 
 %description
 SPIRE HA Agent

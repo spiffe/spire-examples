@@ -22,12 +22,14 @@
 Summary:    Kubernetes SPIFFE Workload Auth Config
 Name:       k8s-spiffe-workload-auth-config
 Version:    0.2.0
-Release:    1
+Release:    2
 Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io
 Source0:    https://github.com/spiffe/k8s-spiffe-workload-auth-config/releases/download/v%{version}/k8s-spiffe-workload-auth-config_Linux_%{ARCH}.tar.gz
 Requires:  spiffe-helper
+
+%global __strip /bin/true
 
 %description
 Kubernetes SPIFFE Workload Auth Config
