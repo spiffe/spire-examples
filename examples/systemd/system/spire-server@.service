@@ -12,7 +12,9 @@ RuntimeDirectory=spire/server/sockets/%i
 RuntimeDirectoryPreserve=true
 ConfigurationDirectory=spire/server
 EnvironmentFile=-/etc/spiffe/default-trust-domain.env
+EnvironmentFile=-/etc/spiffe/server/default.env
 EnvironmentFile=-/etc/spire/server/%i.env
+EnvironmentFile=-/etc/spire/server/%i/env
 Environment=INSTANCE=%i
 ExecStart=/bin/spire-server run -config /var/lib/spire/server/%i/config -dataDir /var/lib/spire/server/%i -socketPath /run/spire/server/sockets/%i/private/api.sock -expandEnv
 ExecStartPre=mkdir -p /var/lib/spire/server/%i /run/spire/server/%i/private /etc/spire/server/%i/tpm-direct/hashes

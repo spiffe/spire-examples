@@ -105,6 +105,7 @@ rm -rf %{buildroot}
 /usr/lib/systemd/system/spire-server@.service
 /bin/spire-server
 %config(noreplace) /etc/spire/server/default.conf
+%config(noreplace) /etc/spire/server/default.env
 
 %files -n spire-agent
 /usr/lib/systemd/system/spire-agent@.service
