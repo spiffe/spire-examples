@@ -22,12 +22,14 @@
 Summary:    SPIRE Agent Node Attestor TPM Direct
 Name:       spire-agent-nodeattestor-tpmdirect
 Version:    1.8.7
-Release:    1
+Release:    2
 Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io
 Source0:    https://github.com/boxboat/spire-tpm-plugin/releases/download/v%{version}/spire_tpm_plugin_tpm_attestor_agent_linux_%{ARCH}_v%{version}.tar.gz
 Source1:    https://github.com/boxboat/spire-tpm-plugin/releases/download/v%{version}/spire_tpm_plugin_get_tpm_pubhash_linux_%{ARCH}_v%{version}.tar.gz
+
+%global __strip /bin/true
 
 %description
 K8s SPIFFE Workload JWT Exec Auth Plugin

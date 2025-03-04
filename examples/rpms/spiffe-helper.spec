@@ -22,12 +22,14 @@
 Summary:    SPIFFE Helper
 Name:       spiffe-helper
 Version:    0.9.1
-Release:    1
+Release:    2
 Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io
 #FIXME grab binaries once they are available
 Source0:    https://github.com/spiffe/spiffe-helper/archive/refs/tags/v%{version}.tar.gz
+
+%global __strip /bin/true
 
 %description
 SPIFFE Helper

@@ -22,13 +22,15 @@
 Summary:    SPIFFE Step SSH
 Name:       spiffe-step-ssh
 Version:    0.0.6
-Release:    1
+Release:    2
 Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io
 Source0:    https://github.com/spiffe/spiffe-step-ssh/archive/refs/tags/v%{version}.tar.gz
 Requires:   step-cli
 Requires:   spiffe-helper
+
+%global __strip /bin/true
 
 %description
 SPIFFE Step SSH
