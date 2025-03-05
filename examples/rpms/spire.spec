@@ -28,6 +28,7 @@ License:    Apache-2.0
 URL:        https://spiffe.io
 Source0:    https://github.com/spiffe/spire/releases/download/v%{version}/spire-%{version}-linux-%{ARCH}-musl.tar.gz
 Source1:    https://github.com/spiffe/spire/releases/download/v%{version}/spire-extras-%{version}-linux-%{ARCH}-musl.tar.gz
+Source2:    spire-extras-systemd.tar.gz
 
 %global __strip /bin/true
 
@@ -81,6 +82,7 @@ SPIFFE OIDC Discovery Provider
 
 %setup -c
 %setup -T -D -a 1
+%setup -T -D -a 2
 
 %build
 
@@ -89,9 +91,7 @@ SPIFFE OIDC Discovery Provider
 mkdir -p "%{buildroot}/bin"
 cp "spire-%{version}"/bin/* "%{buildroot}/bin"
 cp "spire-extras-%{version}"/bin/oidc-discovery-provider "%{buildroot}/bin/spiffe-oidc-discovery-provider"
-git clone https://github.com/spiffe/spire-examples
-cd spire-examples
-cd examples/systemd
+cd systemd
 make install DESTDIR="%{buildroot}"
 
 %clean

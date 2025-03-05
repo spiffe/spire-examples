@@ -5,11 +5,15 @@ ARG STEPVER
 
 WORKDIR /tmp
 
-COPY *.spec /tmp
-ADD rpm.pub /tmp/rpm.pub
-ADD rpmmacros /root/.rpmmacros
+COPY rpms/*.spec /tmp
+ADD rpms/rpm.pub /tmp/rpm.pub
+ADD rpms/rpmmacros /root/.rpmmacros
+
+COPY systemd /tmp/systemd
 
 RUN --mount=type=secret,id=gpg \
+  mkdir -p /root/rpmbuild/SOURCES && \
+  tar -zcvf /root/rpmbuild/SOURCES/spire-extras-systemd.tar.gz systemd && \
   dnf install -y which rpmdevtools rpm-build rpm-sign git make && \
   spectool -g -R spire.spec && \
   rpmbuild -ba spire.spec && \

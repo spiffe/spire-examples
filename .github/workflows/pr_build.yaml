@@ -39,7 +39,7 @@ jobs:
       - run: |
           set -xe
           echo "building: {{github.ref_name}}-$(uname -i)"
-          docker build -t t examples/rpms
+          docker build -t t -f examples/rpms/Dockerfile examples
           docker run -i --rm -v /tmp:/tmp t /bin/bash -c 'cp -a /usr/share/nginx/html/packages /tmp'
       - name: Archive artifacts
         uses: actions/upload-artifact@v4

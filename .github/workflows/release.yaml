@@ -21,7 +21,7 @@ jobs:
           set -e
           echo "building: {{github.ref_name}}-$(uname -i)"
           printf "%s" "$RPM_GPG_KEY" | base64 -d > /tmp/rpm.priv
-          docker build --secret "id=gpg,src=/tmp/rpm.priv" -t t examples/rpms
+          docker build --secret "id=gpg,src=/tmp/rpm.priv" -t t -f examples/rpms/Dockerfile examples
           rm -f /tmp/rpm.priv
           docker run -i --rm -v /tmp:/tmp t /bin/bash -c 'cp -a /usr/share/nginx/html/packages /tmp'
       - name: Archive artifacts
