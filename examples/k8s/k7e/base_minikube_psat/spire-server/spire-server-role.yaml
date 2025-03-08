@@ -8,3 +8,6 @@ rules:
   resources: ["configmaps"]
   resourceNames: ["spire-bundle"]
   verbs: ["get", "patch"]
+- apiGroups: ["authentication.k8s.io"]
+  resources: ["tokenreviews"]
+  verbs: ["create"]

@@ -1,10 +1,10 @@
 # Demo from SPIRE Community Day, May 2019
 
 This example will allow you to recreate the demo from SPIRE Community Day in
-May, 2019. To run this example you'll need:
+May 2019. To run this example you'll need:
 
 + A working minikube.
-+ `kubectl` version 1.14 or later.
++ `kubectl` version 1.20 or later.
 + The [examples/k8s/k7e](/examples/k8s/k7e) directory tree from the SPIRE github
   repository.
 
@@ -24,11 +24,11 @@ $ watch 'set -x; kubectl get pods -n spire; kubectl get pods'
 
 ### Deploy SPIRE
 
-To deploy SPIRE, apply the `base_minikube_sat` configuration from the parent
+To deploy SPIRE, apply the `base_minikube_psat` configuration from the parent
 directory:
 
 ```
-$ kubectl apply -k ../base_minikube_sat
+$ kubectl apply -k ../base_minikube_psat
 ```
 
 Within 30 seconds or so, you should now have pods in "Running" status for both
@@ -102,13 +102,13 @@ registration entries. We'll create two registration entries:
 First, let's create the `node` registration entry:
 
 ```
-$ kubectl exec -n spire spire-server-0 -- /opt/spire/bin/spire-server entry create -node -spiffeID spiffe://example.org/cluster -selector k8s_sat:cluster:demo-cluster
+$ kubectl exec -n spire spire-server-0 -- /opt/spire/bin/spire-server entry create -node -spiffeID spiffe://example.org/cluster -selector k8s_psat:cluster:demo-cluster
 
 Entry ID      : 1685a30f-fb14-4242-a86a-568038407ed7
 SPIFFE ID     : spiffe://example.org/cluster
 Parent ID     : spiffe://example.org/spire/server
 TTL           : 3600
-Selector      : k8s_sat:cluster:demo-cluster
+Selector      : k8s_psat:cluster:demo-cluster
 ```
 
 Second, we'll create a registration entry for our client workload:

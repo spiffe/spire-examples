@@ -1,4 +1,4 @@
-FROM ghcr.io/spiffe/spire-server:1.6.1
+FROM ghcr.io/spiffe/spire-server:1.11.2
 
 # Override spire configurations
 COPY conf/spire-server.conf /opt/spire/conf/server/server.conf

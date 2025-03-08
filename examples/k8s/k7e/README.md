@@ -4,7 +4,7 @@ This directory contains various examples of deploying and configuring SPIRE to
 Kubernetes using [kustomize](https://kustomize.io) which is part of Kubectl as
 of 1.14.
 
-+ [base_minikube_sat](base_minikube_sat) - A base configuration for SPIRE in
++ [base_minikube_psat](base_minikube_psat) - A base configuration for SPIRE in
   minikube using the SAT attestor. This is also the base configuration from
   which all other configurations in this directory are derived.
 + [community_day_2019_may](community_day_2019_may) - This is the demo from
@@ -28,7 +28,7 @@ by kubectl, you can use the "kustomize" argument to `kubectl` along with the
 directory of the configuration to apply. For example:
 
 ```
-$ kubectl kustomize base_minikube_sat
+$ kubectl kustomize base_minikube_psat
 ```
 
 ## Apply Configuration to Kubernetes
@@ -37,5 +37,5 @@ To apply a kustomize configuration with kubectl, use the "-k" option to the
 "apply" option along with the directory of the configuration to apply:
 
 ```
-$ kubectl apply -k base_minikube_sat
+$ kubectl apply -k base_minikube_psat
 ```
