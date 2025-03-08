@@ -1,0 +1,39 @@
+version: '3'
+services:
+  spire-server-federated:
+    build: ./docker/spire-server-federated
+    hostname: spire-server-federated
+    tty: true
+    privileged: true
+  spire-server-domain:
+    build: ./docker/spire-server-domain
+    hostname: spire-server-domain
+    tty: true
+    privileged: true
+  echo:
+    build: ./docker/echo
+    hostname: echo
+    tty: true
+    privileged: true
+    links:
+      - spire-server-domain
+  web-domain:
+    build: ./docker/web-domain
+    hostname: web-domain
+    tty: true
+    privileged: true
+    links:
+      - spire-server-domain
+      - echo
+    ports:
+      - 8080:8080
+  web-federated:
+    build: ./docker/web-federated
+    hostname: web-federated
+    tty: true
+    privileged: true
+    links:
+      - spire-server-federated
+      - echo
+    ports:
+      - 8088:8080
