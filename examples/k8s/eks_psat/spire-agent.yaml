@@ -6,6 +6,34 @@ metadata:
 
 ---
 
+# ClusterRole to allow spire-agent workload attestor to query the kubelet using secure port
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: spire-agent-cluster-role
+rules:
+- apiGroups: [""]
+  resources: ["nodes/proxy"]
+  verbs: ["get"]
+
+---
+
+# Binds above cluster role to spire-agent service account
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: spire-agent-cluster-role-binding
+subjects:
+- kind: ServiceAccount
+  name: spire-agent
+  namespace: spire
+roleRef:
+  kind: ClusterRole
+  name: spire-agent-cluster-role
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -24,7 +52,7 @@ data:
     }
 
     plugins {
-      NodeAttestor "k8s_sat" {
+      NodeAttestor "k8s_psat" {
         plugin_data {
           cluster = "demo-cluster"
         }
@@ -37,10 +65,6 @@ data:
 
       WorkloadAttestor "k8s" {
         plugin_data {
-          # Defaults to the secure kubelet port by default.
-          # Minikube does not have a cert in the cluster CA bundle that
-          # can authenticate the kubelet cert, so skip validation.
-          skip_kubelet_verification = true
           node_name_env = "MY_NODE_NAME"
         }
       }
@@ -106,7 +130,7 @@ spec:
           args: ["-t", "30", "spire-server:8081"]
       containers:
         - name: spire-agent
-          image: ghcr.io/spiffe/spire-agent:1.6.1
+          image: ghcr.io/spiffe/spire-agent:1.11.2
           args: ["-config", "/run/spire/config/agent.conf"]
           env:
           - name: MY_NODE_NAME
@@ -120,6 +144,8 @@ spec:
             - name: spire-agent-socket
               mountPath: /run/spire/sockets
               readOnly: false
+            - name: spire-token
+              mountPath: /var/run/secrets/tokens
           livenessProbe:
             httpGet:
               path: /live
@@ -142,3 +168,10 @@ spec:
           hostPath:
             path: /run/spire/sockets
             type: DirectoryOrCreate
+        - name: spire-token
+          projected:
+            sources:
+            - serviceAccountToken:
+                path: spire-agent
+                expirationSeconds: 7200
+                audience: spire-server

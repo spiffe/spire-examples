@@ -1,4 +1,4 @@
-# Postgres SPIRE 1.5.1 deployment
+# Postgres SPIRE deployment
 
 This configuration is an example of a SPIRE deployment for Kubernetes using
 Postgres as a datastore for the SPIRE server. This configuration provides
@@ -8,13 +8,13 @@ better resiliency and allows for scaling up the number of SPIRE servers.
   PersistentVolume.
 + The SPIRE [server](spire-server.yaml) runs as a stateless Deployment.
 + The SPIRE agent runs as a DaemonSet - note this configuration is a symlink
-  to the [simple sat example](../simple_sat/spire-agent.yaml).
+  to the [simple psat example](../simple_psat/spire-agent.yaml).
 
 Both SPIRE agent and server, along with postgres, run in the **spire**
 namespace, using service accounts of **spire-database**, **spire-server**, and
 **spire-agent**.
 
-Compare the [simple sat server](../simple_sat/spire-server.yaml) configuration with
+Compare the [simple psat server](../simple_psat/spire-server.yaml) configuration with
 this [postgres backed server](spire-server.yaml) to see the differences, which
 consist of: a Deployment instead of a StatefulSet, a datastore plugin change,
 an InitContainer that waits for postgres to be up, and removal of the
@@ -27,11 +27,11 @@ failures and scalability.
 + **stateless** - To run the SPIRE server stateless (as in this example), the
   `UpstreamAuthority` plugin needs to be used.
 + **stateful** - To run the SPIRE server stateful, the directory specified in
-  `data_dir` must be persistent (such as in the [simple sat example](../simple_sat)
+  `data_dir` must be persistent (such as in the [simple psat example](../simple_psat)
   where a StatefulSet and PersistentVolumeClaim are used.
 
 In this example deployment, the SPIRE server is stateless, using the example
-[dummy upstream authority](https://github.com/spiffe/spire/tree/v1.5.1/conf/server).
+[dummy upstream authority](https://github.com/spiffe/spire/tree/main/conf/server).
 
 One other **important note**: In a production environment it is very important
 to use a highly available Postgres configuration, unlike this configuration

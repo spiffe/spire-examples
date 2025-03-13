@@ -6,6 +6,36 @@ metadata:
 
 ---
 
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: spire-server-cluster-role
+rules:
+- apiGroups: [""]
+  resources: ["pods", "nodes"]
+  verbs: ["get"]
+- apiGroups: ["authentication.k8s.io"]
+  resources: ["tokenreviews"]
+  verbs: ["create"]
+
+---
+
+# Binds above cluster role to spire-server service account
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: spire-server-cluster-role-binding
+subjects:
+- kind: ServiceAccount
+  name: spire-server
+  namespace: spire
+roleRef:
+  kind: ClusterRole
+  name: spire-server-cluster-role
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
 apiVersion: v1
 kind: Secret
 metadata:
@@ -46,11 +76,10 @@ data:
         }
       }
 
-      NodeAttestor "k8s_sat" {
+      NodeAttestor "k8s_psat" {
         plugin_data {
           clusters = {
             "demo-cluster" = {
-              service_account_key_file = "/run/k8s-certs/sa.pub"
               service_account_allow_list = ["spire:spire-agent"]
             }
           }
@@ -124,7 +153,7 @@ spec:
           args: ["-t", "30", "spire-database:5432"]
       containers:
         - name: spire-server
-          image: ghcr.io/spiffe/spire-server:1.6.1
+          image: ghcr.io/spiffe/spire-server:1.11.2
           args: ["-config", "/run/spire/config/server.conf"]
           ports:
             - containerPort: 8081
