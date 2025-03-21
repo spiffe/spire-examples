@@ -69,7 +69,7 @@ jobs:
           docker run -i --rm -v /tmp:/tmp ghcr.io/spiffe/spire-examples/pages:latest /bin/bash -c 'cp -a /usr/share/nginx/html/RPMS /tmp/oldpackages/ && cp -a /usr/share/nginx/html/DEBS /tmp/oldpackages/'
           # Copy only packages that don't overwrite a previously released package. This prevents rereleasing a package.
           sudo rsync --ignore-existing -rv /tmp/packages/ /tmp/oldpackages/
-          rm -rf /tmp/packages
+          sudo mv /tmp/packages /tmp/releasepackages
           sudo mv /tmp/oldpackages /tmp/packages
           # Update repos
           docker build -f examples/rpms/Dockerfile.repos -t ghcr.io/spiffe/spire-examples/pages:latest /tmp/packages
@@ -82,7 +82,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release upload "${GITHUB_REF#refs/tags/}" examples/rpms/rpm.pub /tmp/packages/*/*/*.rpm /tmp/packages/*/*/*.deb
+          gh release upload "${GITHUB_REF#refs/tags/}" examples/rpms/rpm.pub /tmp/releasepackages/*/*/*.rpm /tmp/releasepackages/*/*/*.deb
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload Artifact
