@@ -21,13 +21,12 @@
 
 Summary:    SPIFFE Helper
 Name:       spiffe-helper
-Version:    0.9.1
-Release:    2
+Version:    0.10.0
+Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io
-#FIXME grab binaries once they are available
-Source0:    https://github.com/spiffe/spiffe-helper/archive/refs/tags/v%{version}.tar.gz
+Source0:    https://github.com/spiffe/spiffe-helper/releases/download/v%{version}/spiffe-helper_v%{version}_Linux-%{ARCH}.tar.gz
 
 %global __strip /bin/true
 
@@ -42,12 +41,10 @@ SPIFFE Helper
 %setup -c
 
 %build
-cd spiffe-helper-%{version}
-make
 
 %install
 mkdir -p %{buildroot}/usr/bin
-cp spiffe-helper-%{version}/spiffe-helper %{buildroot}/usr/bin
+cp spiffe-helper %{buildroot}/usr/bin
 
 %clean
 rm -rf %{buildroot}
