@@ -26,7 +26,6 @@ Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io
-#FIXME grab binaries once they are available
 Source0:    https://github.com/spiffe/spiffe-helper/releases/download/v%{version}/spiffe-helper_v%{version}_Linux-%{ARCH}.tar.gz
 
 %global __strip /bin/true
