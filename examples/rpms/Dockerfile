@@ -31,6 +31,8 @@ RUN --mount=type=secret,id=gpg \
   rpmbuild -ba spire-server-nodeattestor-tpmdirect.spec && \
   spectool -g -R spire-agent-nodeattestor-tpmdirect.spec && \
   rpmbuild -ba spire-agent-nodeattestor-tpmdirect.spec && \
+  spectool -g -R spire-server-attestor-tpm.spec && \
+  rpmbuild -ba spire-server-attestor-tpm.spec && \
   if [ -f /run/secrets/gpg ]; then \
     gpg --import /run/secrets/gpg && \
     gpg --import rpm.pub && \
