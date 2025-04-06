@@ -21,7 +21,7 @@
 
 Summary:    SPIRE Server Attestor TPM Sign
 Name:       spire-server-attestor-tpm-sign
-Version:    0.0.3
+Version:    0.0.4
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
