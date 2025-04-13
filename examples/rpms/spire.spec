@@ -22,7 +22,7 @@
 Summary:    SPIRE components
 Name:       spire-common
 Version:    1.12.0
-Release:    1
+Release:    2
 Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io
@@ -104,6 +104,7 @@ rm -rf %{buildroot}
 %files -n spire-server
 /usr/lib/systemd/system/spire-server@.service
 /bin/spire-server
+/usr/libexec/spire/server/start.sh
 %config(noreplace) /etc/spire/server/default.conf
 %config(noreplace) /etc/spire/server/default.env
 
