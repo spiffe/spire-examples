@@ -12,13 +12,11 @@ RuntimeDirectory=spire/server/sockets/%i
 RuntimeDirectoryPreserve=true
 ConfigurationDirectory=spire/server
 EnvironmentFile=-/etc/spiffe/default-trust-domain.env
-EnvironmentFile=-/etc/spiffe/server/default.env
+EnvironmentFile=-/etc/spire/server/default.env
 EnvironmentFile=-/etc/spire/server/%i.env
 EnvironmentFile=-/etc/spire/server/%i/env
-Environment=INSTANCE=%i
-ExecStart=/bin/spire-server run -config /var/lib/spire/server/%i/config -dataDir /var/lib/spire/server/%i -socketPath /run/spire/server/sockets/%i/private/api.sock -expandEnv
-ExecStartPre=mkdir -p /var/lib/spire/server/%i /run/spire/server/%i/private /etc/spire/server/%i/tpm-direct/hashes
-ExecStartPre=/bin/bash -c "if [ -f /etc/spire/server/%i/config ]; then cp -a /etc/spire/server/%i/config /var/lib/spire/server/%i/config; else if [ -f /etc/spire/server/%i.conf ]; then cp -a /etc/spire/server/%i.conf /var/lib/spire/server/%i/config; else cp -a /etc/spire/server/default.conf /var/lib/spire/server/%i/config; fi; fi"
+Environment=SYSTEMD_INSTANCE=%i
+ExecStart=/usr/libexec/spire/server/start.sh
 # https://gist.github.com/ageis/f5595e59b1cddb1513d1b425a323db04
 LockPersonality=true
 MemoryDenyWriteExecute=true

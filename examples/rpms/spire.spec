@@ -22,7 +22,7 @@
 Summary:    SPIRE components
 Name:       spire-common
 Version:    1.12.0
-Release:    1
+Release:    2
 Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io
