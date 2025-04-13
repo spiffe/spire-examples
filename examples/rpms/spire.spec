@@ -104,6 +104,7 @@ rm -rf %{buildroot}
 %files -n spire-server
 /usr/lib/systemd/system/spire-server@.service
 /bin/spire-server
+/usr/libexec/spire/server/start.sh
 %config(noreplace) /etc/spire/server/default.conf
 %config(noreplace) /etc/spire/server/default.env
 
