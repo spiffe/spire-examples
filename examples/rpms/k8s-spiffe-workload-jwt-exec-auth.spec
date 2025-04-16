@@ -21,8 +21,8 @@
 
 Summary:    K8s SPIFFE Workload JWT Exec Auth Plugin
 Name:       k8s-spiffe-workload-jwt-exec-auth
-Version:    0.0.5
-Release:    2
+Version:    0.0.6
+Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io
