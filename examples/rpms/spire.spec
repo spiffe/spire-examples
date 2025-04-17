@@ -93,6 +93,9 @@ cp "spire-%{version}"/bin/* "%{buildroot}/bin"
 cp "spire-extras-%{version}"/bin/oidc-discovery-provider "%{buildroot}/bin/spiffe-oidc-discovery-provider"
 cd systemd
 make install DESTDIR="%{buildroot}"
+rm -f "%{buildroot}/etc/spire/controller-manager/default.conf"
+rm -f "%{buildroot}/usr/lib/systemd/system/spire-controller-manager@.service"
+rm -f "%{buildroot}/usr/libexec/spire/controller-manager/start.sh"
 
 %clean
 rm -rf %{buildroot}
