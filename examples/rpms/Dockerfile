@@ -17,6 +17,8 @@ RUN --mount=type=secret,id=gpg \
   dnf install -y which rpmdevtools rpm-build rpm-sign git make && \
   spectool -g -R spire.spec && \
   rpmbuild -ba spire.spec && \
+  spectool -g -R spire-controller-manager.spec && \
+  rpmbuild -ba spire-controller-manager.spec && \
   spectool -g -R spiffe-helper.spec && \
   rpmbuild -ba spiffe-helper.spec && \
   spectool -g -R spiffe-step-ssh.spec && \
