@@ -45,7 +45,7 @@ SPIRE Controller Manager
 %setup -T -D -a 1
 
 %build
-curl -L -o go.tar.gz https://go.dev/dl/go1.24.2.linux-amd64.tar.gz
+curl -L -o go.tar.gz https://go.dev/dl/go1.24.2.linux-%{ARCH}.tar.gz
 tar -xvf go.tar.gz
 export PATH=$PATH:$(pwd)/go/bin
 export CGO_ENABLED=0
