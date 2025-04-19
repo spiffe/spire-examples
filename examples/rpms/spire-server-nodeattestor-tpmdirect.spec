@@ -21,17 +21,17 @@
 
 Summary:    SPIRE Server Node Attestor TPM Direct
 Name:       spire-server-nodeattestor-tpmdirect
-Version:    1.8.7
-Release:    2
+Version:    1.9.0
+Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io
-Source0:    https://github.com/boxboat/spire-tpm-plugin/releases/download/v%{version}/spire_tpm_plugin_tpm_attestor_server_linux_%{ARCH}_v%{version}.tar.gz
+Source0:    https://github.com/spiffe/spire-tpm-plugin/releases/download/v%{version}/spire_tpm_plugin_tpm_attestor_server_linux_%{ARCH}_v%{version}.tar.gz
 
 %global __strip /bin/true
 
 %description
-K8s SPIFFE Workload JWT Exec Auth Plugin
+SPIRE Server Node Attestor TPM Direct
 
 %global _missing_build_ids_terminate_build 0
 %global debug_package %{nil}
