@@ -21,8 +21,8 @@
 
 Summary:    SPIRE HA Agent
 Name:       spire-ha-agent
-Version:    0.0.12
-Release:    2
+Version:    0.0.13
+Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io

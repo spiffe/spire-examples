@@ -21,8 +21,8 @@
 
 Summary:    Kubernetes SPIFFE Workload Auth Config
 Name:       k8s-spiffe-workload-auth-config
-Version:    0.2.0
-Release:    2
+Version:    0.2.1
+Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io
