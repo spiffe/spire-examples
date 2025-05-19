@@ -21,7 +21,7 @@
 
 Summary:    SPIRE Credential Composer CEL
 Name:       spire-credentialcomposer-cel
-Version:    0.0.1
+Version:    0.0.2
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
