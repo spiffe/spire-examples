@@ -37,6 +37,8 @@ RUN --mount=type=secret,id=gpg \
   rpmbuild -ba spire-server-attestor-tpm.spec && \
   spectool -g -R spire-credentialcomposer-cel.spec && \
   rpmbuild -ba spire-credentialcomposer-cel.spec && \
+  spectool -g -R aws-spiffe-workload-helper.spec && \
+  rpmbuild -ba aws-spiffe-workload-helper.spec && \
   if [ -f /run/secrets/gpg ]; then \
     gpg --import /run/secrets/gpg && \
     gpg --import rpm.pub && \
