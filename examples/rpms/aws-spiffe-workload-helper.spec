@@ -21,7 +21,7 @@
 
 Summary:    AWS SPIFFE Workload Helper
 Name:       aws-spiffe-workload-helper
-Version:    0.0.2
+Version:    0.0.3
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
