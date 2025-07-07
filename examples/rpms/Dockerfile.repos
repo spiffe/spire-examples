@@ -40,5 +40,5 @@ FROM docker.io/library/nginx:latest
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=rpm-builder9 /tmp/packages/RPMS /usr/share/nginx/html/RPMS
 COPY --from=rpm-builder9 /tmp/packages/DEBS /usr/share/nginx/html/DEBS
-COPY --from=rpm-builder9 /tmp/packages/RPMS/el10 /usr/share/nginx/html/RPMS/el10
-COPY --from=rpm-builder9 /tmp/packages/RPMS/el8 /usr/share/nginx/html/RPMS/el8
+COPY --from=rpm-builder10 /tmp/packages/RPMS/el10 /usr/share/nginx/html/RPMS/el10
+COPY --from=rpm-builder8 /tmp/packages/RPMS/el8 /usr/share/nginx/html/RPMS/el8
