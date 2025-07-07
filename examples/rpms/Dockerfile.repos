@@ -1,10 +1,8 @@
-FROM docker.io/library/almalinux:9 AS rpm-builder
+FROM docker.io/library/almalinux:9 AS rpm-builder9
 
 WORKDIR /tmp
-
 COPY RPMS /tmp/packages/RPMS
 COPY DEBS /tmp/packages/DEBS
-
 RUN \
   dnf install -y createrepo_c && \
   mkdir -p /tmp/packages/RPMS/x86_64/el9 && \
@@ -14,7 +12,33 @@ RUN \
   cd /tmp/packages/RPMS/aarch64 && \
   createrepo -u https://spiffe.github.io/spire-examples/RPMS/aarch64 -o el9/ .
 
+FROM docker.io/library/almalinux:10 AS rpm-builder10
+WORKDIR /tmp
+COPY RPMS /tmp/packages/RPMS
+RUN \
+  dnf install -y createrepo_c && \
+  mkdir -p /tmp/packages/RPMS/x86_64/el10 && \
+  mkdir -p /tmp/packages/RPMS/aarch64/el10 && \
+  cd /tmp/packages/RPMS/x86_64 && \
+  createrepo -u https://spiffe.github.io/spire-examples/RPMS/x86_64 -o el10/ . && \
+  cd /tmp/packages/RPMS/aarch64 && \
+  createrepo -u https://spiffe.github.io/spire-examples/RPMS/aarch64 -o el10/ .
+
+FROM docker.io/library/almalinux:8 AS rpm-builder8
+WORKDIR /tmp
+COPY RPMS /tmp/packages/RPMS
+RUN \
+  dnf install -y createrepo_c && \
+  mkdir -p /tmp/packages/RPMS/x86_64/el8 && \
+  mkdir -p /tmp/packages/RPMS/aarch64/el8 && \
+  cd /tmp/packages/RPMS/x86_64 && \
+  createrepo -u https://spiffe.github.io/spire-examples/RPMS/x86_64 -o el8/ . && \
+  cd /tmp/packages/RPMS/aarch64 && \
+  createrepo -u https://spiffe.github.io/spire-examples/RPMS/aarch64 -o el8/ .
+
 FROM docker.io/library/nginx:latest
 RUN rm -rf /usr/share/nginx/html/*
-COPY --from=rpm-builder /tmp/packages/RPMS /usr/share/nginx/html/RPMS
-COPY --from=rpm-builder /tmp/packages/DEBS /usr/share/nginx/html/DEBS
+COPY --from=rpm-builder9 /tmp/packages/RPMS /usr/share/nginx/html/RPMS
+COPY --from=rpm-builder9 /tmp/packages/DEBS /usr/share/nginx/html/DEBS
+COPY --from=rpm-builder9 /tmp/packages/RPMS/el10 /usr/share/nginx/html/RPMS/el10
+COPY --from=rpm-builder9 /tmp/packages/RPMS/el8 /usr/share/nginx/html/RPMS/el8
