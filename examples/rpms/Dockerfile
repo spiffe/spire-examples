@@ -1,7 +1,9 @@
 ARG STEPVER="0.28.2"
+ARG STEPCAVER="0.28.4"
 
 FROM docker.io/library/almalinux:9 AS rpm-builder
 ARG STEPVER
+ARG STEPCAVER
 
 WORKDIR /tmp
 
@@ -49,10 +51,12 @@ RUN --mount=type=secret,id=gpg \
 
 RUN \
   dnf localinstall -y https://github.com/smallstep/cli/releases/download/v${STEPVER}/step-cli-${STEPVER}-1.$(uname -i).rpm && \
+  dnf localinstall -y https://github.com/smallstep/certificates/releases/download/v${STEPCAVER}/step-ca-${STEPCAVER}-1.$(uname -i).rpm && \
   dnf localinstall -y /root/rpmbuild/RPMS/*/*.rpm
 
 FROM docker.io/library/ubuntu:latest AS deb-builder
 ARG STEPVER
+ARG STEPCAVER
 
 COPY --from=rpm-builder /root/rpmbuild/RPMS /root/rpmbuild/RPMS
 
@@ -69,7 +73,9 @@ RUN \
 
 RUN \
   curl -L -o step-cli.deb https://github.com/smallstep/cli/releases/download/v${STEPVER}/step-cli_${STEPVER}-1_$(dpkg --print-architecture).deb && \
+  curl -L -o step-ca.deb https://github.com/smallstep/certificates/releases/download/v${STEPCAVER}/step-ca_${STEPCAVER}-1_$(dpkg --print-architecture).deb && \
   apt-get install -y ./step-cli.deb && \
+  apt-get install -y ./step-ca.deb && \
   apt-get install -y /root/debbuild/*/*.deb
 
 FROM docker.io/library/nginx:latest

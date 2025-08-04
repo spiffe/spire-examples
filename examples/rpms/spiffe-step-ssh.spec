@@ -21,8 +21,8 @@
 
 Summary:    SPIFFE Step SSH
 Name:       spiffe-step-ssh
-Version:    0.0.6
-Release:    2
+Version:    0.0.7
+Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io
@@ -34,6 +34,13 @@ Requires:   spiffe-helper
 
 %description
 SPIFFE Step SSH
+
+%package -n spiffe-step-ssh-server
+Summary: SPIFFE Step SSH Server
+Requires: step-ca
+Requires: spiffe-helper
+%description -n spiffe-step-ssh-server
+SPIFFE Step SSH Server
 
 %global _missing_build_ids_terminate_build 0
 %global debug_package %{nil}
@@ -47,6 +54,7 @@ SPIFFE Step SSH
 %install
 cd spiffe-step-ssh-%{version}
 make install DESTDIR="%{buildroot}"
+make install-server DESTDIR="%{buildroot}"
 
 %clean
 rm -rf %{buildroot}
@@ -57,3 +65,13 @@ rm -rf %{buildroot}
 /usr/lib/systemd/system/spiffe-step-ssh@.service
 /usr/lib/systemd/system/spiffe-step-ssh-cleanup.service
 %config(noreplace) /etc/spiffe/step-ssh
+
+%files -n spiffe-step-ssh-server
+/usr/lib/systemd/system/spiffe-step-ssh-server@.service
+/usr/lib/systemd/system/spiffe-step-ssh-fetchca@.service
+/usr/libexec/spiffe/step-ssh-server/main
+/usr/libexec/spiffe/step-ssh-server/ssh_x5c.tpl
+/usr/libexec/spiffe/step-ssh-server/nginx-fetchca.conf
+/usr/libexec/spiffe/step-ssh-server/helper-fetchca.conf
+/usr/sbin/setup-spiffe-step-ssh-server
+%config(noreplace) /etc/spiffe/step-ssh-server
