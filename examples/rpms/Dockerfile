@@ -3,6 +3,7 @@ ARG STEPCAVER="0.28.4"
 
 FROM docker.io/library/almalinux:9 AS rpm-builder
 ARG STEPVER
+ARG STEPCAVER
 
 WORKDIR /tmp
 
@@ -55,6 +56,7 @@ RUN \
 
 FROM docker.io/library/ubuntu:latest AS deb-builder
 ARG STEPVER
+ARG STEPCAVER
 
 COPY --from=rpm-builder /root/rpmbuild/RPMS /root/rpmbuild/RPMS
 
