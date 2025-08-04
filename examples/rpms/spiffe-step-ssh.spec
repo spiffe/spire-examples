@@ -21,7 +21,7 @@
 
 Summary:    SPIFFE Step SSH
 Name:       spiffe-step-ssh
-Version:    0.0.7
+Version:    0.0.8
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
