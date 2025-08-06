@@ -21,7 +21,7 @@
 
 Summary:    SPIFFE Step SSH
 Name:       spiffe-step-ssh
-Version:    0.0.8
+Version:    0.0.9
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
@@ -74,4 +74,5 @@ rm -rf %{buildroot}
 /usr/libexec/spiffe/step-ssh-server/nginx-fetchca.conf
 /usr/libexec/spiffe/step-ssh-server/helper-fetchca.conf
 /usr/sbin/setup-spiffe-step-ssh-server
+/usr/sbin/spiffe-step-ssh-get-cert-authority
 %config(noreplace) /etc/spiffe/step-ssh-server
