@@ -21,7 +21,7 @@
 
 Summary:    SPIRE HA Agent
 Name:       spire-ha-agent
-Version:    0.0.13
+Version:    0.0.18
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
@@ -46,6 +46,12 @@ Requires: socat
 %description -n spire-socat
 SPIRE socat
 
+%package -n spiffe-socat-unix
+Summary: SPIFFE socat unix
+Requires: socat
+%description -n spiffe-socat-unix
+SPIRE socat unix
+
 %global _missing_build_ids_terminate_build 0
 %global debug_package %{nil}
 
@@ -60,10 +66,13 @@ SPIRE socat
 mkdir -p %{buildroot}/usr/bin
 mkdir -p %{buildroot}/usr/lib/systemd/system
 mkdir -p %{buildroot}/etc/spire/socat
+mkdir -p %{buildroot}/etc/spiffe/socat/unix
 mv spire-ha-agent %{buildroot}/usr/bin
 cp -a systemd/spire-ha-agent@.service %{buildroot}/usr/lib/systemd/system
 cp -a systemd/spire-socat@.service %{buildroot}/usr/lib/systemd/system
+cp -a systemd/spiffe-socat-unix@.service %{buildroot}/usr/lib/systemd/system
 cp -a config/socat/* %{buildroot}/etc/spire/socat/
+cp -a config/socat-unix/* %{buildroot}/etc/spiffe/socat/unix/
 mkdir -p %{buildroot}/usr/libexec/spire/trust-sync/
 mkdir -p %{buildroot}/etc/spire/trust-sync
 cp -a spire-trust-sync-helper %{buildroot}/usr/libexec/spire/trust-sync
@@ -80,6 +89,10 @@ rm -rf %{buildroot}
 %files -n spire-socat
 /usr/lib/systemd/system/spire-socat@.service
 %config(noreplace) /etc/spire/socat/*
+
+%files -n spiffe-socat-unix
+/usr/lib/systemd/system/spiffe-socat-unix@.service
+%config(noreplace) /etc/spiffe/socat/unix/*
 
 %files -n spire-trust-sync
 /usr/libexec/spire/trust-sync
