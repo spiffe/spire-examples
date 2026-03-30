@@ -21,7 +21,7 @@
 
 Summary:    SPIRE HA Agent
 Name:       spire-ha-agent
-Version:    0.0.13
+Version:    0.0.17
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
@@ -45,6 +45,12 @@ Summary: SPIRE socat
 Requires: socat
 %description -n spire-socat
 SPIRE socat
+
+%package -n spiffe-socat-unix
+Summary: SPIFFE socat unix
+Requires: socat
+%description -n spiffe-socat-unix
+SPIRE socat unix
 
 %global _missing_build_ids_terminate_build 0
 %global debug_package %{nil}
@@ -80,6 +86,10 @@ rm -rf %{buildroot}
 %files -n spire-socat
 /usr/lib/systemd/system/spire-socat@.service
 %config(noreplace) /etc/spire/socat/*
+
+%files -n spiffe-socat
+/usr/lib/systemd/system/spiffe-socat-unix@.service
+%config(noreplace) /etc/spiffe/socat/unix/*
 
 %files -n spire-trust-sync
 /usr/libexec/spire/trust-sync
