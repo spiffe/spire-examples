@@ -87,7 +87,7 @@ rm -rf %{buildroot}
 /usr/lib/systemd/system/spire-socat@.service
 %config(noreplace) /etc/spire/socat/*
 
-%files -n spiffe-socat
+%files -n spiffe-socat-unix
 /usr/lib/systemd/system/spiffe-socat-unix@.service
 %config(noreplace) /etc/spiffe/socat/unix/*
 
