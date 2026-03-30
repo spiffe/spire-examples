@@ -66,10 +66,13 @@ SPIRE socat unix
 mkdir -p %{buildroot}/usr/bin
 mkdir -p %{buildroot}/usr/lib/systemd/system
 mkdir -p %{buildroot}/etc/spire/socat
+mkdir -p %{buildroot}/etc/spiffe/socat/unix
 mv spire-ha-agent %{buildroot}/usr/bin
 cp -a systemd/spire-ha-agent@.service %{buildroot}/usr/lib/systemd/system
 cp -a systemd/spire-socat@.service %{buildroot}/usr/lib/systemd/system
+cp -a systemd/spiffe-socat-unix@.service %{buildroot}/usr/lib/systemd/system
 cp -a config/socat/* %{buildroot}/etc/spire/socat/
+cp -a config/socat-unix/* %{buildroot}/etc/spiffe/socat/unix/
 mkdir -p %{buildroot}/usr/libexec/spire/trust-sync/
 mkdir -p %{buildroot}/etc/spire/trust-sync
 cp -a spire-trust-sync-helper %{buildroot}/usr/libexec/spire/trust-sync
