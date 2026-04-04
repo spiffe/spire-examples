@@ -48,7 +48,7 @@ SPIFFE PVE EK Servie used to integrate Proxmox and SPIFFE
 mkdir -p "%{buildroot}/bin"
 mkdir -p "%{buildroot}/etc/spiffe/pve-ek"
 mkdir -p "%{buildroot}/usr/lib/systemd/system"
-mkdir -p "%{buildroot}/var/lib/sz/snippets/"
+mkdir -p "%{buildroot}/var/lib/vz/snippets/"
 cp -a spiffe-pve-ek %{buildroot}/usr/bin
 cp -a spire-tpm-plugin-%{version}/pve/conf/* %{buildroot}/etc/spiffe/pve-ek/
 cp -a spire-tpm-plugin-%{version}/pve/systemd/* %{buildroot}/usr/lib/systemd/system/
