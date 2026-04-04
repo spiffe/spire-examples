@@ -51,7 +51,7 @@ mkdir -p "%{buildroot}/usr/lib/systemd/system"
 cp -a spiffe-pve-ek %{buildroot}/usr/bin
 cp -a spire-tpm-plugin-%{version}/pve/conf/* %{buildroot}/etc/spiffe/pve-ek/
 cp -a spire-tpm-plugin-%{version}/pve/systemd/* %{buildroot}/usr/lib/systemd/system/
-cp -a spire-tpm-plugin-%{version}/pve/hook/tpm-attestor.pl /var/lib/vz/snippets/
+cp -a spire-tpm-plugin-%{version}/pve/hook/tpm-attestor.pl %{buildroot}/var/lib/vz/snippets/
 
 %clean
 rm -rf %{buildroot}
