@@ -21,7 +21,7 @@
 
 Summary:    SPIFFE PVE EK Service
 Name:       spiffe-pve-ek
-Version:    1.11.0
+Version:    1.11.1
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
