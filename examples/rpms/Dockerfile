@@ -41,6 +41,12 @@ RUN --mount=type=secret,id=gpg \
   rpmbuild -ba spire-credentialcomposer-cel.spec && \
   spectool -g -R aws-spiffe-workload-helper.spec && \
   rpmbuild -ba aws-spiffe-workload-helper.spec && \
+  if [ "$(uname -m)" == "x86_64" ]; then \
+    spectool -g -R spiffe-pve-ek.spec && \
+    rpmbuild -ba spiffe-pve-ek.spec; \
+  else \
+    true; \
+  fi && \
   if [ -f /run/secrets/gpg ]; then \
     gpg --import /run/secrets/gpg && \
     gpg --import rpm.pub && \
@@ -80,4 +86,5 @@ RUN \
 
 FROM docker.io/library/nginx:latest
 COPY --from=rpm-builder /root/rpmbuild/RPMS /usr/share/nginx/html/packages/RPMS
+RUN rm -f /usr/share/nginx/html/packages/RPMS/x86_64/spiffe-pve-ek*
 COPY --from=deb-builder /root/debbuild /usr/share/nginx/html/packages/DEBS

@@ -21,7 +21,7 @@
 
 Summary:    SPIRE Server Node Attestor TPM Direct
 Name:       spire-server-nodeattestor-tpmdirect
-Version:    1.9.0
+Version:    1.11.1
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
