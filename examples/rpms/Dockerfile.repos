@@ -2,7 +2,6 @@ FROM docker.io/library/almalinux:9 AS rpm-builder9
 
 WORKDIR /tmp
 COPY RPMS /tmp/packages/RPMS
-COPY DEBS /tmp/packages/DEBS
 RUN \
   dnf install -y createrepo_c && \
   mkdir -p /tmp/packages/RPMS/x86_64/el9 && \
@@ -36,10 +35,22 @@ RUN \
   cd /tmp/packages/RPMS/aarch64 && \
   createrepo -u https://spiffe.github.io/spire-examples/RPMS/aarch64 -o el8/ .
 
+FROM docker.io/library/debian-stable-slim AS deb-builder
+WORKDIR /tmp
+COPY DEBS /tmp/packages/DEBS
+RUN \
+  apt-get update && \
+  apt-get install -y --no-install-recommends dpkg-dev gzip && \
+  rm -rf /var/lib/apt/lists/* && \
+  cd /tmp/packages/DEBS/amd64 && \
+  dpkg-scanpackages --arch amd64 . | gzip -9c > Packages.gz && \
+  cd /tmp/packages/DEBS/arm64 && \
+  dpkg-scanpackages --arch arm64 . | gzip -9c > Packages.gz
+
 FROM docker.io/library/nginx:latest
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=rpm-builder9 /tmp/packages/RPMS /usr/share/nginx/html/RPMS
-COPY --from=rpm-builder9 /tmp/packages/DEBS /usr/share/nginx/html/DEBS
+COPY --from=deb-builder /tmp/packages/DEBS /usr/share/nginx/html/DEBS
 COPY --from=rpm-builder10 /tmp/packages/RPMS/x86_64/el10 /usr/share/nginx/html/RPMS/x86_64/el10
 COPY --from=rpm-builder10 /tmp/packages/RPMS/aarch64/el10 /usr/share/nginx/html/RPMS/aarch64/el10
 COPY --from=rpm-builder8 /tmp/packages/RPMS/x86_64/el8 /usr/share/nginx/html/RPMS/x86_64/el8
