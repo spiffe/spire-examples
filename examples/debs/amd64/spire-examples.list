@@ -1,0 +1,1 @@
+deb [trusted=yes] https://spiffe.github.io/spire-examples/DEBS/amd64/ ./
