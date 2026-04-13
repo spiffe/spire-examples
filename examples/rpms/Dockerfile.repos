@@ -35,7 +35,7 @@ RUN \
   cd /tmp/packages/RPMS/aarch64 && \
   createrepo -u https://spiffe.github.io/spire-examples/RPMS/aarch64 -o el8/ .
 
-FROM docker.io/library/debian-stable-slim AS deb-builder
+FROM docker.io/library/debian:stable-slim AS deb-builder
 WORKDIR /tmp
 COPY DEBS /tmp/packages/DEBS
 RUN \
