@@ -72,7 +72,7 @@ jobs:
           sudo mv /tmp/packages /tmp/releasepackages
           sudo mv /tmp/oldpackages /tmp/packages
           # Update repos
-          cp -af examples/rpms/apt-release.conf /tmp/packages/
+          sudo cp -af examples/rpms/apt-release.conf /tmp/packages/
           docker build -f examples/rpms/Dockerfile.repos -t ghcr.io/spiffe/spire-examples/pages:latest /tmp/packages
           sudo rm -rf /tmp/packages
           mkdir -p /tmp/packages
