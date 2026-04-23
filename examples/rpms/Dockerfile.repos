@@ -38,14 +38,22 @@ RUN \
 FROM docker.io/library/debian:stable-slim AS deb-builder
 WORKDIR /tmp
 COPY DEBS /tmp/packages/DEBS
+COPY apt-release.conf /tmp/apt-release.conf
 RUN \
   apt-get update && \
-  apt-get install -y --no-install-recommends dpkg-dev gzip && \
+  apt-get install -y --no-install-recommends dpkg-dev apt-utils gzip && \
   rm -rf /var/lib/apt/lists/* && \
+  mkdir -p /tmp/packages/DEBS/binary-amd64/ && \
   cd /tmp/packages/DEBS/amd64 && \
   dpkg-scanpackages --arch amd64 . | gzip -9c > Packages.gz && \
+  cd .. && \
+  dpkg-scanpackages --arch amd64 amd64/ | gzip -9c > binary-amd64/Packages.gz && \
+  mkdir -p /tmp/packages/DEBS/binary-arm64/ && \
   cd /tmp/packages/DEBS/arm64 && \
-  dpkg-scanpackages --arch arm64 . | gzip -9c > Packages.gz
+  dpkg-scanpackages --arch arm64 . | gzip -9c > Packages.gz && \
+  cd .. && \
+  dpkg-scanpackages --arch arm64 arm64/ | gzip -9c > binary-arm64/Packages.gz && \
+  apt-ftparchive -c /tmp/apt-release.conf release . > Release
 
 FROM docker.io/library/nginx:latest
 RUN rm -rf /usr/share/nginx/html/*

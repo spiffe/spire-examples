@@ -85,10 +85,10 @@ jobs:
           gh release upload "${GITHUB_REF#refs/tags/}" examples/rpms/rpm.pub /tmp/releasepackages/*/*/*.rpm /tmp/releasepackages/*/*/*.deb
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: /tmp/packages
+      #- name: Upload Artifact
+      #  uses: actions/upload-pages-artifact@v3
+      #  with:
+      #    path: /tmp/packages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

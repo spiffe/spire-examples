@@ -21,7 +21,7 @@
 
 Summary:    SPIRE Agent Node Attestor TPM Direct
 Name:       spire-agent-nodeattestor-tpmdirect
-Version:    1.11.1
+Version:    1.11.3
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
