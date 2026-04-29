@@ -25,6 +25,8 @@ RUN --mount=type=secret,id=gpg \
   rpmbuild -ba spiffe-helper.spec && \
   spectool -g -R spiffe-step-ssh.spec && \
   rpmbuild -ba spiffe-step-ssh.spec && \
+  spectool -g -R spiffe-step-ssh-user-agent.spec && \
+  rpmbuild -ba spiffe-step-ssh-user-agent.spec && \
   spectool -g -R spire-ha-agent.spec && \
   rpmbuild -ba spire-ha-agent.spec && \
   spectool -g -R k8s-spiffe-workload-jwt-exec-auth.spec && \
