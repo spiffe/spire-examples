@@ -89,7 +89,10 @@ SPIFFE OIDC Discovery Provider
 %install
 
 mkdir -p "%{buildroot}/bin"
-cp "spire-%{version}"/bin/* "%{buildroot}/bin"
+mkdir -p "%{buildroot}/usr/libexec/spire/server"
+mkdir -p "%{buildroot}/usr/libexec/spire/agent"
+cp "spire-%{version}"/bin/spire-server "%{buildroot}/usr/libexec/spire/server/"
+cp "spire-%{version}"/bin/spire-agent "%{buildroot}/usr/libexec/spire/agent/"
 cp "spire-extras-%{version}"/bin/oidc-discovery-provider "%{buildroot}/bin/spiffe-oidc-discovery-provider"
 cd systemd
 make install DESTDIR="%{buildroot}"
@@ -106,19 +109,17 @@ rm -rf %{buildroot}
 %config(noreplace) /etc/spiffe/default-trust-domain.env
 
 %files -n spire-server
-/etc/profile.d/spire-server.sh
-/usr/lib/systemd/system.conf.d/10-spire-server-env.conf
 /usr/lib/systemd/system/spire-server@.service
 /bin/spire-server
+/usr/libexec/spire/server/spire-server
 /usr/libexec/spire/server/start.sh
 %config(noreplace) /etc/spire/server/default.conf
 %config(noreplace) /etc/spire/server/default.env
 
 %files -n spire-agent
-/etc/profile.d/spire-agent.sh
-/usr/lib/systemd/system.conf.d/10-spire-agent-env.conf
 /usr/lib/systemd/system/spire-agent@.service
 /bin/spire-agent
+/usr/libexec/spire/agent/spire-agent
 /usr/libexec/spire/agent/start.sh
 %config(noreplace) /etc/spire/agent/default.conf
 %config(noreplace) /etc/spire/agent/default.env

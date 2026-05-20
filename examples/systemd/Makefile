@@ -3,16 +3,13 @@ default:
 	@echo "  install"
 
 install:
-	mkdir -p $(DESTDIR)/etc/profile.d/
-	mkdir -p $(DESTDIR)/usr/lib/systemd/system.conf.d/
+	mkdir -p $(DESTDIR)/usr/bin/
 	mkdir -p $(DESTDIR)/usr/lib/systemd/system/
 	mkdir -p $(DESTDIR)/usr/libexec/spire/agent/
 	mkdir -p $(DESTDIR)/usr/libexec/spire/server/
 	mkdir -p $(DESTDIR)/usr/libexec/spire/controller-manager/
-	install systemd/system/env/10-spire-agent-env.conf $(DESTDIR)/usr/lib/systemd/system.conf.d/
-	install systemd/system/env/10-spire-server-env.conf $(DESTDIR)/usr/lib/systemd/system.conf.d/
-	install scripts/server/spire-server.sh $(DESTDIR)/etc/profile.d/
-	install scripts/server/spire-agent.sh $(DESTDIR)/etc/profile.d/
+	install scripts/server/spire-server.sh $(DESTDIR)/usr/bin/spire-server
+	install scripts/server/spire-agent.sh $(DESTDIR)/usr/bin/spire-agent
 	install scripts/agent/start.sh $(DESTDIR)/usr/libexec/spire/agent/
 	install scripts/server/start.sh $(DESTDIR)/usr/libexec/spire/server/
 	install scripts/controller-manager/start.sh $(DESTDIR)/usr/libexec/spire/controller-manager/
