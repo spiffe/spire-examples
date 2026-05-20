@@ -9,7 +9,7 @@ install:
 	mkdir -p $(DESTDIR)/usr/libexec/spire/server/
 	mkdir -p $(DESTDIR)/usr/libexec/spire/controller-manager/
 	install scripts/server/spire-server.sh $(DESTDIR)/usr/bin/spire-server
-	install scripts/server/spire-agent.sh $(DESTDIR)/usr/bin/spire-agent
+	install scripts/agent/spire-agent.sh $(DESTDIR)/usr/bin/spire-agent
 	install scripts/agent/start.sh $(DESTDIR)/usr/libexec/spire/agent/
 	install scripts/server/start.sh $(DESTDIR)/usr/libexec/spire/server/
 	install scripts/controller-manager/start.sh $(DESTDIR)/usr/libexec/spire/controller-manager/
