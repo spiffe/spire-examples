@@ -9,8 +9,8 @@ install:
 	mkdir -p $(DESTDIR)/usr/libexec/spire/agent/
 	mkdir -p $(DESTDIR)/usr/libexec/spire/server/
 	mkdir -p $(DESTDIR)/usr/libexec/spire/controller-manager/
-	install systemd/env/10-spire-agent-env.conf $(DESTDIR)/usr/lib/systemd/system.conf.d/
-	install systemd/env/10-spire-server-env.conf $(DESTDIR)/usr/lib/systemd/system.conf.d/
+	install systemd/system/env/10-spire-agent-env.conf $(DESTDIR)/usr/lib/systemd/system.conf.d/
+	install systemd/system/env/10-spire-server-env.conf $(DESTDIR)/usr/lib/systemd/system.conf.d/
 	install scripts/server/spire-server.sh $(DESTDIR)/etc/profile.d/
 	install scripts/server/spire-agent.sh $(DESTDIR)/etc/profile.d/
 	install scripts/agent/start.sh $(DESTDIR)/usr/libexec/spire/agent/
