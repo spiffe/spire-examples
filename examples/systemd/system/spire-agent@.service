@@ -12,10 +12,13 @@ RuntimeDirectory=spire/agent/sockets/%i
 RuntimeDirectoryPreserve=true
 ConfigurationDirectory=spire/agent
 EnvironmentFile=-/etc/spiffe/default-trust-domain.env
+EnvironmentFile=-/etc/spire/agent/default.env
 EnvironmentFile=-/etc/spire/agent/%i.env
+EnvironmentFile=-/etc/spire/agent/%i/env
 Environment=INSTANCE=%i
+Environment=SYSTEMD_INSTANCE=%i
 Environment="SPIRE_AGENT_ADMIN_ADDRESS=/var/run/spire/agent/sockets/%i/private/admin.sock"
-ExecStart=/bin/spire-agent run -config /var/lib/spire/agent/%i/config -dataDir /var/lib/spire/agent/%i -socketPath /run/spire/agent/sockets/%i/public/api.sock -expandEnv
+ExecStart=/usr/libexec/spire/agent/start.sh
 ExecStartPre=mkdir -p /var/lib/spire/agent/%i /run/spire/agent/%i/public
 ExecStartPre=/bin/bash -c "if [ -f /etc/spire/agent/%i.conf ]; then cp -a /etc/spire/agent/%i.conf /var/lib/spire/agent/%i/config; else cp -a /etc/spire/agent/default.conf /var/lib/spire/agent/%i/config; fi"
 # https://gist.github.com/ageis/f5595e59b1cddb1513d1b425a323db04

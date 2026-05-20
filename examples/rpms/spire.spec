@@ -21,7 +21,7 @@
 
 Summary:    SPIRE components
 Name:       spire-common
-Version:    1.14.6
+Version:    1.15.0
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
@@ -89,11 +89,15 @@ SPIFFE OIDC Discovery Provider
 %install
 
 mkdir -p "%{buildroot}/bin"
-cp "spire-%{version}"/bin/* "%{buildroot}/bin"
+mkdir -p "%{buildroot}/usr/libexec/spire/server"
+mkdir -p "%{buildroot}/usr/libexec/spire/agent"
+cp "spire-%{version}"/bin/spire-server "%{buildroot}/usr/libexec/spire/server/"
+cp "spire-%{version}"/bin/spire-agent "%{buildroot}/usr/libexec/spire/agent/"
 cp "spire-extras-%{version}"/bin/oidc-discovery-provider "%{buildroot}/bin/spiffe-oidc-discovery-provider"
 cd systemd
 make install DESTDIR="%{buildroot}"
 rm -f "%{buildroot}/etc/spire/controller-manager/default.conf"
+rm -f "%{buildroot}/etc/spire/controller-manager/default.env"
 rm -f "%{buildroot}/usr/lib/systemd/system/spire-controller-manager@.service"
 rm -f "%{buildroot}/usr/libexec/spire/controller-manager/start.sh"
 
@@ -107,6 +111,7 @@ rm -rf %{buildroot}
 %files -n spire-server
 /usr/lib/systemd/system/spire-server@.service
 /bin/spire-server
+/usr/libexec/spire/server/spire-server
 /usr/libexec/spire/server/start.sh
 %config(noreplace) /etc/spire/server/default.conf
 %config(noreplace) /etc/spire/server/default.env
@@ -114,7 +119,10 @@ rm -rf %{buildroot}
 %files -n spire-agent
 /usr/lib/systemd/system/spire-agent@.service
 /bin/spire-agent
+/usr/libexec/spire/agent/spire-agent
+/usr/libexec/spire/agent/start.sh
 %config(noreplace) /etc/spire/agent/default.conf
+%config(noreplace) /etc/spire/agent/default.env
 
 %files -n spiffe-oidc-discovery-provider
 /bin/spiffe-oidc-discovery-provider

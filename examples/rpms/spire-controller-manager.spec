@@ -22,7 +22,7 @@
 Summary:    SPIRE Controller Manager
 Name:       spire-controller-manager
 Version:    0.6.4
-Release:    1
+Release:    2
 Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io
@@ -62,7 +62,10 @@ rm -f "%{buildroot}/etc/spire/server/default".*
 rm -f "%{buildroot}/usr/lib/systemd/system/spire-agent"*
 rm -f "%{buildroot}/usr/lib/systemd/system/spire-server"*
 rm -f "%{buildroot}/usr/lib/systemd/system/spire.target"
+rm -f "%{buildroot}/usr/libexec/spire/agent/start.sh"
 rm -f "%{buildroot}/usr/libexec/spire/server/start.sh"
+rm -f "%{buildroot}/bin/spire-server"
+rm -f "%{buildroot}/bin/spire-agent"
 
 %clean
 rm -rf %{buildroot}
@@ -72,3 +75,4 @@ rm -rf %{buildroot}
 /usr/bin/spire-controller-manager
 /usr/libexec/spire/controller-manager/start.sh
 %config(noreplace) /etc/spire/controller-manager/default.conf
+%config(noreplace) /etc/spire/controller-manager/default.env
