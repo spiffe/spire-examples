@@ -21,7 +21,7 @@
 
 Summary:    SPIRE components
 Name:       spire-common
-Version:    1.14.6
+Version:    1.15.0
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
@@ -94,6 +94,7 @@ cp "spire-extras-%{version}"/bin/oidc-discovery-provider "%{buildroot}/bin/spiff
 cd systemd
 make install DESTDIR="%{buildroot}"
 rm -f "%{buildroot}/etc/spire/controller-manager/default.conf"
+rm -f "%{buildroot}/etc/spire/controller-manager/default.env"
 rm -f "%{buildroot}/usr/lib/systemd/system/spire-controller-manager@.service"
 rm -f "%{buildroot}/usr/libexec/spire/controller-manager/start.sh"
 
@@ -105,6 +106,8 @@ rm -rf %{buildroot}
 %config(noreplace) /etc/spiffe/default-trust-domain.env
 
 %files -n spire-server
+/etc/profile.d/spire-server.sh
+/usr/lib/systemd/system.conf.d/10-spire-server-env.conf
 /usr/lib/systemd/system/spire-server@.service
 /bin/spire-server
 /usr/libexec/spire/server/start.sh
@@ -112,9 +115,13 @@ rm -rf %{buildroot}
 %config(noreplace) /etc/spire/server/default.env
 
 %files -n spire-agent
+/etc/profile.d/spire-agent.sh
+/usr/lib/systemd/system.conf.d/10-spire-agent-env.conf
 /usr/lib/systemd/system/spire-agent@.service
 /bin/spire-agent
+/usr/libexec/spire/agent/start.sh
 %config(noreplace) /etc/spire/agent/default.conf
+%config(noreplace) /etc/spire/agent/default.env
 
 %files -n spiffe-oidc-discovery-provider
 /bin/spiffe-oidc-discovery-provider

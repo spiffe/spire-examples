@@ -16,6 +16,7 @@ EnvironmentFile=-/etc/spiffe/default-trust-domain.env
 EnvironmentFile=-/etc/spiffe/server/default.env
 EnvironmentFile=-/etc/spire/server/%i.env
 EnvironmentFile=-/etc/spire/server/%i/env
+EnvironmentFile=-/etc/spire/controller-manager/default.env
 EnvironmentFile=-/etc/spire/controller-manager/%i.env
 EnvironmentFile=-/etc/spire/server/%i/controller-manager.env
 Environment=SYSTEMD_INSTANCE=%i
