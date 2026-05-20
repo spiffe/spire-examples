@@ -64,6 +64,8 @@ rm -f "%{buildroot}/usr/lib/systemd/system/spire-server"*
 rm -f "%{buildroot}/usr/lib/systemd/system/spire.target"
 rm -f "%{buildroot}/usr/libexec/spire/agent/start.sh"
 rm -f "%{buildroot}/usr/libexec/spire/server/start.sh"
+rm -f "%{buildroot}/bin/spire-server"
+rm -f "%{buildroot}/bin/spire-agent"
 
 %clean
 rm -rf %{buildroot}
