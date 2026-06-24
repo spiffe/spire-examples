@@ -55,7 +55,7 @@ rm -rf %{buildroot}
 
 %files
 /usr/bin/spire-identity-exchange-server
-/usr/lib/systemd/system/spire-server-attestor-spiffe-workload-api@.service
+/usr/lib/systemd/system/spire-identity-exchange-server@.service
 %config(noreplace) /etc/spire/identity-exchange/default.conf
 %config(noreplace) /etc/spire/identity-exchange/default.env
 
