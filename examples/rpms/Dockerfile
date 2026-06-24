@@ -21,6 +21,12 @@ RUN --mount=type=secret,id=gpg \
   rpmbuild -ba spire.spec && \
   spectool -g -R spire-controller-manager.spec && \
   rpmbuild -ba spire-controller-manager.spec && \
+  spectool -g -R spire-credentialcomposer-identity-exchange.spec && \
+  rpmbuild -ba spire-credentialcomposer-identity-exchange.spec && \
+  spectool -g -R spire-identity-exchange-server.spec && \
+  rpmbuild -ba spire-identity-exchange-server.spec && \
+  spectool -g -R spire-server-attestor-spiffe-workload-api.spec && \
+  rpmbuild -ba spire-server-attestor-spiffe-workload-api.spec && \
   spectool -g -R spiffe-helper.spec && \
   rpmbuild -ba spiffe-helper.spec && \
   spectool -g -R spiffe-step-ssh.spec && \
