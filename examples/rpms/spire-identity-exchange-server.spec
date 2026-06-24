@@ -47,7 +47,7 @@ mkdir -p "%{buildroot}/usr/bin"
 mkdir -p "%{buildroot}/usr/lib"
 mkdir -p "%{buildroot}/etc/spire/identity-exchange"
 cp -a spire-identity-exchange-server %{buildroot}/usr/bin/spire-identity-exchange-server
-cp -a systemd/spire-identity-exchange-server@.service %{buildroot}/usr/lib/systemd/system/spire-identity-exchange-server@.service
+cp -a systemd/spire-identity-exchange@.service %{buildroot}/usr/lib/systemd/system/spire-identity-exchange-server@.service
 cp -a config/* %{buildroot}/etc/spire/identity-exchange/
 
 %clean
