@@ -44,7 +44,7 @@ SPIRE Server Attestor SPIFFE Workload API
 
 %install
 mkdir -p "%{buildroot}/usr/bin"
-mkdir -p "%{buildroot}/usr/lib"
+mkdir -p "%{buildroot}/usr/lib/systemd/system"
 cp -a spire-server-attestor-spiffe-workload-api %{buildroot}/usr/bin/spire-server-attestor-spiffe-workload-api
 cp -a systemd/spire-server-attestor-spiffe-workload-api@.service %{buildroot}/usr/lib/systemd/system/spire-server-attestor-spiffe-workload-api@.service
 
