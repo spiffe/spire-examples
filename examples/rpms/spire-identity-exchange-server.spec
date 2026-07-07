@@ -21,7 +21,7 @@
 
 Summary:    SPIRE Identity Exchange Server
 Name:       spire-identity-exchange-server
-Version:    0.1.0
+Version:    0.2.0
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
@@ -47,7 +47,7 @@ mkdir -p "%{buildroot}/usr/bin"
 mkdir -p "%{buildroot}/usr/lib/systemd/system"
 mkdir -p "%{buildroot}/etc/spire/identity-exchange"
 cp -a spire-identity-exchange-server %{buildroot}/usr/bin/spire-identity-exchange-server
-cp -a systemd/spire-identity-exchange@.service %{buildroot}/usr/lib/systemd/system/spire-identity-exchange-server@.service
+cp -a systemd/spire-identity-exchange-server@.service %{buildroot}/usr/lib/systemd/system/spire-identity-exchange-server@.service
 cp -a config/* %{buildroot}/etc/spire/identity-exchange/
 
 %clean

@@ -83,7 +83,7 @@ RUN \
   cd /root/debbuild && \
   mkdir $(dpkg --print-architecture) && \
   cd * && \
-  alien -k -c --to-deb /root/rpmbuild/RPMS/*/*.rpm
+  alien -k --to-deb /root/rpmbuild/RPMS/*/*.rpm
 
 RUN \
   curl -L -o step-cli.deb https://github.com/smallstep/cli/releases/download/v${STEPVER}/step-cli_${STEPVER}-1_$(dpkg --print-architecture).deb && \
