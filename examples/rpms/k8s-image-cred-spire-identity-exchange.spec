@@ -19,19 +19,19 @@
 
 %define ARCH %(echo %{_arch} | sed s/aarch64/arm64/)
 
-Summary:    SPIRE Server Attestor SPIFFE Workload API
-Name:       spire-server-attestor-spiffe-workload-api
+Summary:    Kubernetes Image Credential Plugin SPIRE Identity Exchange
+Name:       k8s-image-cred-spire-identity-exchange
 Version:    0.3.0
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io
-Source0:    https://github.com/spiffe/spire-identity-exchange/releases/download/v%{version}/spire-server-attestor-spiffe-workload-api_Linux_%{ARCH}.tar.gz
+Source0:    https://github.com/spiffe/spire-identity-exchange/releases/download/v%{version}/k8s-image-cred-spire-identity-exchange_Linux_%{ARCH}.tar.gz
 
 %global __strip /bin/true
 
 %description
-SPIRE Server Attestor SPIFFE Workload API
+Kubernetes Image Credential Plugin SPIRE Identity Exchange
 
 %global _missing_build_ids_terminate_build 0
 %global debug_package %{nil}
@@ -43,15 +43,12 @@ SPIRE Server Attestor SPIFFE Workload API
 %build
 
 %install
-mkdir -p "%{buildroot}/usr/bin"
-mkdir -p "%{buildroot}/usr/lib/systemd/system"
-cp -a spire-server-attestor-spiffe-workload-api %{buildroot}/usr/bin/spire-server-attestor-spiffe-workload-api
-cp -a systemd/spire-server-attestor-spiffe-workload-api@.service %{buildroot}/usr/lib/systemd/system/spire-server-attestor-spiffe-workload-api@.service
+mkdir -p "%{buildroot}/usr/libexec/kubelet-credential-providers"
+cp -a k8s-image-cred-spire-identity-exchange %{buildroot}/usr/libexec/kubelet-credential-providers
 
 %clean
 rm -rf %{buildroot}
 
 %files
-/usr/bin/spire-server-attestor-spiffe-workload-api
-/usr/lib/systemd/system/spire-server-attestor-spiffe-workload-api@.service
+/usr/libexec/kubelet-credential-providers/k8s-image-cred-spire-identity-exchange
 
