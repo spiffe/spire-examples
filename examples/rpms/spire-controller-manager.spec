@@ -21,7 +21,7 @@
 
 Summary:    SPIRE Controller Manager
 Name:       spire-controller-manager
-Version:    0.6.6
+Version:    0.7.0
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
