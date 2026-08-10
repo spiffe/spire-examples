@@ -21,7 +21,7 @@
 
 Summary:    SPIRE HA Agent
 Name:       spire-ha-agent
-Version:    0.0.18
+Version:    0.3.0
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
