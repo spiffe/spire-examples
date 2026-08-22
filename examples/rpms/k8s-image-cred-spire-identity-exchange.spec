@@ -21,7 +21,7 @@
 
 Summary:    Kubernetes Image Credential Plugin SPIRE Identity Exchange
 Name:       k8s-image-cred-spire-identity-exchange
-Version:    0.3.0
+Version:    0.5.0
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
