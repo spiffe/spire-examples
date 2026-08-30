@@ -19,19 +19,19 @@
 
 %define ARCH %(echo %{_arch} | sed s/aarch64/arm64/)
 
-Summary:    K8s SPIFFE Workload JWT Exec Auth Plugin
-Name:       k8s-spiffe-workload-jwt-exec-auth
-Version:    0.3.0
+Summary:    SPIFFE FS
+Name:       spiffefs
+Version:    0.4.0
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io
-Source0:    https://github.com/spiffe/k8s-spiffe-workload-jwt-exec-auth/releases/download/v%{version}/k8s-spiffe-workload-jwt-exec-auth_Linux_%{ARCH}.tar.gz
+Source0:    https://github.com/spiffe/spiffefs/releases/download/v%{version}/spiffefs_Linux_%{ARCH}.tar.gz
 
 %global __strip /bin/true
 
 %description
-K8s SPIFFE Workload JWT Exec Auth Plugin
+A filesystem to deliver using the SPIFFE filesystem delivery spec.
 
 %global _missing_build_ids_terminate_build 0
 %global debug_package %{nil}
@@ -44,10 +44,10 @@ K8s SPIFFE Workload JWT Exec Auth Plugin
 
 %install
 mkdir -p "%{buildroot}/usr/bin"
-cp -a k8s-spiffe-workload-jwt-exec-auth %{buildroot}/usr/bin
+cp -a spiffefs %{buildroot}/usr/bin
 
 %clean
 rm -rf %{buildroot}
 
 %files
-/usr/bin/k8s-spiffe-workload-jwt-exec-auth
+/usr/bin/spiffefs

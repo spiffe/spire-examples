@@ -19,19 +19,24 @@
 
 %define ARCH %(echo %{_arch} | sed s/aarch64/arm64/)
 
-Summary:    K8s SPIFFE Workload JWT Exec Auth Plugin
-Name:       k8s-spiffe-workload-jwt-exec-auth
-Version:    0.3.0
+Summary:    SLURM SPIRE Syncer
+Name:       slurm-spire-syncer
+Version:    0.1.0
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
 URL:        https://spiffe.io
-Source0:    https://github.com/spiffe/k8s-spiffe-workload-jwt-exec-auth/releases/download/v%{version}/k8s-spiffe-workload-jwt-exec-auth_Linux_%{ARCH}.tar.gz
+Source0:    https://github.com/spiffe/slurm-spire-syncer/releases/download/v%{version}/slurm-spire-syncer_Linux_%{ARCH}.tar.gz
 
 %global __strip /bin/true
 
 %description
-K8s SPIFFE Workload JWT Exec Auth Plugin
+Syncs running SLURM jobs into SPIRE registration entries, so workloads attested
+by the SPIRE slurm workload attestor are issued an SVID.
+
+Requires the SLURM client tools at runtime: it polls "squeue --json". SLURM is
+not expressed as a package dependency because it is not carried in the base
+distribution repositories.
 
 %global _missing_build_ids_terminate_build 0
 %global debug_package %{nil}
@@ -43,11 +48,19 @@ K8s SPIFFE Workload JWT Exec Auth Plugin
 %build
 
 %install
-mkdir -p "%{buildroot}/usr/bin"
-cp -a k8s-spiffe-workload-jwt-exec-auth %{buildroot}/usr/bin
+mkdir -p %{buildroot}/usr/bin
+mkdir -p %{buildroot}/usr/lib/systemd/system
+mkdir -p %{buildroot}/etc/spire/slurm-syncer
+cp -a slurm-spire-syncer %{buildroot}/usr/bin
+cp -a systemd/slurm-spire-syncer@.service %{buildroot}/usr/lib/systemd/system
+cp -a config/slurm-syncer/default.conf %{buildroot}/etc/spire/slurm-syncer/
+cp -a config/slurm-syncer/default.env %{buildroot}/etc/spire/slurm-syncer/
 
 %clean
 rm -rf %{buildroot}
 
 %files
-/usr/bin/k8s-spiffe-workload-jwt-exec-auth
+/usr/bin/slurm-spire-syncer
+/usr/lib/systemd/system/slurm-spire-syncer@.service
+%config(noreplace) /etc/spire/slurm-syncer/default.conf
+%config(noreplace) /etc/spire/slurm-syncer/default.env

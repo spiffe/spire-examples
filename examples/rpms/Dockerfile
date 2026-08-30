@@ -51,6 +51,10 @@ RUN --mount=type=secret,id=gpg \
   rpmbuild -ba k8s-image-cred-spire-identity-exchange.spec && \
   spectool -g -R aws-spiffe-workload-helper.spec && \
   rpmbuild -ba aws-spiffe-workload-helper.spec && \
+  spectool -g -R slurm-spire-syncer.spec && \
+  rpmbuild -ba slurm-spire-syncer.spec && \
+  spectool -g -R spiffefs.spec && \
+  rpmbuild -ba spiffefs.spec && \
   if [ "$(uname -m)" == "x86_64" ]; then \
     spectool -g -R spiffe-pve-ek.spec && \
     rpmbuild -ba spiffe-pve-ek.spec; \
