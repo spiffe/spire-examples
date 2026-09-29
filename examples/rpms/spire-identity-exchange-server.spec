@@ -21,7 +21,7 @@
 
 Summary:    SPIRE Identity Exchange Server
 Name:       spire-identity-exchange-server
-Version:    0.5.0
+Version:    0.6.0
 Release:    1
 Group:      Applications/Internet
 License:    Apache-2.0
